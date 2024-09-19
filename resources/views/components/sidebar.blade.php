@@ -103,7 +103,7 @@
 <body class="bg-gray-100 ">
     <div class="flex">
         <!-- Sidebar -->
-        <aside id="sidebar" class="bg-gray-800 text-white h-screen sidebar-collapsed flex flex-col">
+        <aside id="sidebar" class="fixed top-0 left-0 bg-gray-800 text-white h-screen sidebar-collapsed flex flex-col z-50">
             <div class="ml-2 p-4 flex items-center">
                 <button id="toggleSidebar" class="text-white focus:outline-none">
                     <i id="sidebarIcon" class="fas fa-bars fa-lg"></i>
