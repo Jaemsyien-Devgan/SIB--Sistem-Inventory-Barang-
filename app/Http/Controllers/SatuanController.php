@@ -8,30 +8,35 @@ use Illuminate\Http\Request;
 class SatuanController extends Controller
 {
     public function index(Request $request)
-{
-    // Ambil nilai 'per_page' dari session atau request
-    $perPage = $request->input('per_page', session('per_page', 5));
-    session(['per_page' => $perPage]);
+    {
+        // Ambil nilai 'per_page' dari session atau request
+        $perPage = $request->input('per_page', session('per_page', 5));
+        session(['per_page' => $perPage]);
 
-    // Ambil nilai pencarian dari input search
-    $search = $request->input('search');
-    $query = Satuan::query();
+        // Ambil nilai pencarian dari input search
+        $search = $request->input('search');
+        $query = Satuan::query();
 
-    // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
-    if ($search) {
-        $query->where(function($q) use ($search) {
-            $q->where('kode_satuan', 'like', "%{$search}%")
-              ->orWhere('nama_satuan', 'like', "%{$search}%")
-              ->orWhere('singkatan', 'like', "%{$search}%")
-              ->orWhere('deskripsi', 'like', "%{$search}%");
-        });
+        // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('kode_satuan', 'like', "%{$search}%")
+                    ->orWhere('nama_satuan', 'like', "%{$search}%")
+                    ->orWhere('singkatan', 'like', "%{$search}%")
+                    ->orWhere('deskripsi', 'like', "%{$search}%");
+            });
+        }
+
+        // Cek apakah perPage adalah -1, jika iya, ambil semua data
+        if ($perPage == -1) {
+            $satuans = $query->get(); // Ambil semua data
+        } else {
+            $satuans = $query->paginate($perPage); // Pagination
+        }
+
+        return view('satuan', compact('satuans'));
     }
 
-    // Pagination
-    $satuans = $query->paginate($perPage);
-
-    return view('satuan', compact('satuans'));
-}
 
 
     public function create()

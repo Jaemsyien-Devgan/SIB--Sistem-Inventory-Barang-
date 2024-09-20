@@ -11,7 +11,7 @@
                 @csrf
                 <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-4">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2 pl-6">
-                        Tambahkan Satuan
+                        Tambahkan Data Satuan
                     </h2>
                     <div class="p-6 text-gray-100 grid gap-6">
                         <div class="grid grid-cols-2 gap-6">
@@ -99,6 +99,7 @@
                             <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
                             <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
                             <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20</option>
+                            <option value="-1" {{ request('per_page') == -1 ? 'selected' : '' }}>All</option>
                         </select>
                         <div
                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-200">
@@ -311,7 +312,7 @@
         </div>
     @endforeach
 
-    <script>
+<script>
         function openModal(id) {
             // Menghapus class 'hidden' untuk modal dengan ID yang sesuai
             document.getElementById(`modal_satuan_${id}`).classList.remove('hidden');
@@ -321,9 +322,6 @@
             // Menambahkan class 'hidden' untuk modal dengan ID yang sesuai
             document.getElementById(`modal_satuan_${id}`).classList.add('hidden');
         }
-    </script>
-
-    <script>
         function changePerPage() {
             var perPage = document.getElementById('perPage').value;
             var currentUrl = new URL(window.location.href);
