@@ -4,6 +4,8 @@ use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\SatuanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +22,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/Product', [ProductController::class, 'index'])->name('product');
     Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
+    Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek');
+
+
+    route::get('/satuan', [SatuanController::class, 'index'])->name('satuan.index');
+    Route::get('/satuan/create', [SatuanController::class, 'create'])->name('satuan.create');
+    Route::post('/satuan', [SatuanController::class, 'store'])->name('satuan.store');
+    Route::delete('/satuan/{satuan}', [SatuanController::class, 'destroy'])->name('satuan.destroy');
+    Route::get('/satuan/{id}/edit', [SatuanController::class, 'edit'])->name('satuan.edit');
+    Route::put('/satuan/{id}', [SatuanController::class, 'update'])->name('satuan.update');
 });
 
 require __DIR__.'/auth.php';

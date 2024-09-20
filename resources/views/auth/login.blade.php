@@ -51,7 +51,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mangools Login</title>
+    <title>SIB Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -60,19 +60,18 @@
         }
     </style>
 </head>
-<body class="bg-[#FFFAF5] min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md">
-        <div class="text-center mb-8">
+<body class="bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] min-h-screen flex items-center justify-center bg-opacity-50 backdrop-blur-md ">
+    <div class="w-full max-w-md items-center">
+        <div class="text-center mb-8 justify-center">
             <div class="flex justify-center items-center mb-4">
-                <div class="w-8 h-8 bg-yellow-500 rounded-full mr-2"></div>
-                <h1 class="text-2xl font-bold text-gray-800">Mangools</h1>
+                <h1 class="text-2xl font-bold text-white">SIB</h1>
             </div>
-            <h2 class="text-3xl font-bold text-gray-800">Good to see you again</h2>
+            <h2 class="text-3xl font-extrabold text-white">SISTEM INVENTORY BARANG</h2>
         </div>
 
         <div class="bg-white shadow-lg rounded-lg p-8 relative">
-            <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-red-400 to-yellow-400 rounded-full opacity-50"></div>
-            <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-red-400 to-yellow-400 rounded-full opacity-50"></div>
+            <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-gray-400 to-pink-400 rounded-full opacity-50"></div>
+            <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-gray-400 to-pink-400 rounded-full opacity-50"></div>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6 relative z-10">
                 @csrf
@@ -95,7 +94,7 @@
                     </button>
                 </div>
                 <div class="flex items-center justify-between text-sm">
-                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Don't have an account?</a>
+                    <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">Don't have an account?</a>
 
                     @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="font-medium text-indigo-600 hover:text-indigo-500">{{ ('Forgot your password?') }}</a>

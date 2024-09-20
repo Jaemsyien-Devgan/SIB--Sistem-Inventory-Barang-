@@ -133,7 +133,7 @@
                         </li>
                         <ul class="dropdown-content bg-gray-700 rounded-lg mt-1">
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
-                                <a href="" class="w-full flex items-center ">
+                                <a href="{{ route('proyek') }}" class="w-full flex items-center ">
                                     <i class="fas fa-project-diagram text-yellow-400 mr-2 "></i>
                                     <span>Tabel Proyek</span>
                                 </a>
@@ -151,7 +151,7 @@
                                 </a>
                             </li>
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
-                                <a href="" class="w-full flex items-center">
+                                <a href="{{ route('satuan.index') }}" class="w-full flex items-center">
                                     <i class="fas fa-balance-scale text-pink-400 mr-2"></i>
                                     <span>Tabel Satuan</span>
                                 </a>
