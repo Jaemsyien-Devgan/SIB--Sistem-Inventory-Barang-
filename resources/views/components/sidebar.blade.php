@@ -145,7 +145,7 @@
                                 </a>
                             </li>
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
-                                <a href="" class="w-full flex items-center">
+                                <a href="{{route('supplier')}}" class="w-full flex items-center">
                                     <i class="fas fa-handshake text-orange-400 mr-2"></i>
                                     <span>Tabel Rekanan</span>
                                 </a>
