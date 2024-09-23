@@ -22,6 +22,13 @@ Route::middleware('auth')->group(function () {
     // User ADD
     Route::get('/admin', [UserController::class, 'index'])->name('admin');
     Route::post('/admin/add', [UserController::class, 'store'])->name('admin.store');
+    Route::get('/admin/create', [UserController::class, 'create'])->name('admin.create');
+    Route::delete('/admin/{admin}', [UserController::class, 'destroy'])->name('admin.destroy');
+    Route::get('/admin/{id}/edit', [UserController::class, 'edit'])->name('admin.edit');
+    Route::put('/admin/{id}', [UserController::class, 'update'])->name('admin.update');
+
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
