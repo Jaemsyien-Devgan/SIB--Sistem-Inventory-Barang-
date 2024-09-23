@@ -40,9 +40,9 @@
                             <div>
                                 <label for="password" class="block text-sm font-medium">Password</label>
                                 <div class="relative">
-                                    <input id="password"
+                                    <input type="password" id="password"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="password" required />
+                                        name="password" required autocomplete="new-password" />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
                                     </div>
@@ -51,9 +51,9 @@
                             <div>
                                 <label for="confirm_password" class="block text-sm font-medium">Confirm Password</label>
                                 <div class="relative">
-                                    <input id="status"
+                                    <input type="password" id="confirm_password"
                                         class="block mt-1 w-full pl-10 pr-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="password_confirmation" required />
+                                        name="password_confirmation" required autocomplete="new-password" />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-scale-balanced w-5 h-5 text-blue-400"></i>
                                     </div>
@@ -137,31 +137,34 @@
 
                         <tr>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                 Nama User</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                 EMail</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                 Password</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                 Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach ($admins as $admin)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-center">
                                     {{ $admin->name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center">
                                     {{ $admin->email }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center">
                                     {{ $admin->password }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <button
-                                        class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2"
+                                        class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2 text-center"
                                         onclick="openModal({{ $admin->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -201,99 +204,100 @@
         <!-- Table End -->
 
         @foreach ($admins as $admin)
-        <div id="modal_user{{ $admin->id }}" class="fixed z-10 inset-0 overflow-y-auto hidden"
-            aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div
-                    class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
-                    <div class="p-6">
-                        <h2 class="text-2xl font-medium text-gray-100 mb-4">
-                            Edit Data User
-                        </h2>
-                        <div
-                            class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-6">
-                            <!-- Edit Form -->
-                            <form id="editForm" method="POST" action="{{ route('admin.update', $admin->id) }}">
-                                @csrf
-                                @method('PUT')
-                                <div class="p-6 text-gray-100 grid gap-6">
-                                    <div class="grid grid-cols-2 gap-6">
-                                        <div>
-                                            <label for="name" class="block text-sm font-medium">Nama User</label>
-                                            <div class="relative">
-                                                <input id="name"
-                                                    class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                                    type="text" name="name" value="{{ $admin->name }}"
-                                                    required autofocus />
-                                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                                    <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
+            <div id="modal_user{{ $admin->id }}" class="fixed z-10 inset-0 overflow-y-auto hidden"
+                aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div
+                        class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-medium text-gray-100 mb-4">
+                                Edit Data User
+                            </h2>
+                            <div
+                                class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-6">
+                                <!-- Edit Form -->
+                                <form id="editForm" method="POST" action="{{ route('admin.update', $admin->id) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="p-6 text-gray-100 grid gap-6">
+                                        <div class="grid grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="name" class="block text-sm font-medium">Nama User</label>
+                                                <div class="relative">
+                                                    <input id="name"
+                                                        class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md "
+                                                        type="text" name="name" value="{{ $admin->name }}"
+                                                        required autofocus />
+                                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="email" class="block text-sm font-medium">Email User</label>
+                                                <div class="relative">
+                                                    <input id="email"
+                                                        class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
+                                                        type="text" name="email" value="{{ $admin->email }}"
+                                                        required />
+                                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <label for="email" class="block text-sm font-medium">Email User</label>
-                                            <div class="relative">
-                                                <input id="email"
-                                                    class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                                    type="text" name="email" value="{{ $admin->email }}"
-                                                    required />
-                                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                                    <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
+                                        <div class="grid grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="password" class="block text-sm font-medium">password</label>
+                                                <div class="relative">
+                                                    <input id="password"
+                                                        class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
+                                                        type="text" name="password" value="{{ $admin->password }}"
+                                                        required />
+                                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-6">
-                                        <div>
-                                            <label for="password" class="block text-sm font-medium">password</label>
-                                            <div class="relative">
-                                                <input id="password"
-                                                    class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                                    type="text" name="password" value="{{ $admin->password }}"
-                                                    required />
-                                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                                    <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="mt-6 flex justify-end space-x-3">
+                                        <button type="button"
+                                            class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
+                                            onclick="closeModal({{ $admin->id }})">
+                                            Close
+                                        </button>
+                                        <button type="submit"
+                                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Save
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="mt-6 flex justify-end space-x-3">
-                                    <button type="button"
-                                        class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
-                                        onclick="closeModal({{ $admin->id }})">
-                                        Close
-                                    </button>
-                                    <button type="submit"
-                                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Save
-                                    </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
 
-<script>
-        function openModal(id) {
-            // Menghapus class 'hidden' untuk modal dengan ID yang sesuai
-            document.getElementById(`modal_user${id}`).classList.remove('hidden');
-        }
+        <script>
+            function openModal(id) {
+                // Menghapus class 'hidden' untuk modal dengan ID yang sesuai
+                document.getElementById(`modal_user${id}`).classList.remove('hidden');
+            }
 
-        function closeModal(id) {
-            // Menambahkan class 'hidden' untuk modal dengan ID yang sesuai
-            document.getElementById(`modal_user${id}`).classList.add('hidden');
-        }
-        function changePerPage() {
-            var perPage = document.getElementById('perPage').value;
-            var currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('per_page', perPage);
-            window.location.href = currentUrl.toString();
-        }
-    </script>
+            function closeModal(id) {
+                // Menambahkan class 'hidden' untuk modal dengan ID yang sesuai
+                document.getElementById(`modal_user${id}`).classList.add('hidden');
+            }
+
+            function changePerPage() {
+                var perPage = document.getElementById('perPage').value;
+                var currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('per_page', perPage);
+                window.location.href = currentUrl.toString();
+            }
+        </script>
     @endsection
