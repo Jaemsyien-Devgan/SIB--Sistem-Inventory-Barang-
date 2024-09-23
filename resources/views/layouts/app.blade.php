@@ -54,7 +54,6 @@
 
             #mainContent>header {
                 border-radius: 1rem;
-
             }
         }
     </style>
@@ -67,7 +66,11 @@
             <x-header />
             <div id="innerContent">
                 <main class="mt-4">
-                    @yield('content')
+                    @hasSection('content')
+                        @yield('content')
+                    @else
+                        {{ $slot ?? '' }}
+                    @endif
                 </main>
             </div>
         </div>

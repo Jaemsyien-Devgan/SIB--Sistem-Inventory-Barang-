@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\SatuanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    // User ADD
+    Route::get('/admin', [UserController::class, 'index'])->name('admin');
+    Route::post('/admin/add', [UserController::class, 'store'])->name('admin.store');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -25,12 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek');
 
 
-    route::get('/satuan', [SatuanController::class, 'index'])->name('satuan.index');
+    Route::get('/satuan', [SatuanController::class, 'index'])->name('satuan.index');
     Route::get('/satuan/create', [SatuanController::class, 'create'])->name('satuan.create');
     Route::post('/satuan', [SatuanController::class, 'store'])->name('satuan.store');
     Route::delete('/satuan/{satuan}', [SatuanController::class, 'destroy'])->name('satuan.destroy');
     Route::get('/satuan/{id}/edit', [SatuanController::class, 'edit'])->name('satuan.edit');
     Route::put('/satuan/{id}', [SatuanController::class, 'update'])->name('satuan.update');
+
+
+
+
+
 });
 
 require __DIR__.'/auth.php';

@@ -167,7 +167,7 @@
                             <span class="sidebar-content">Inventory</span>
                         </li>
                     </a>
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin') }}" class="sidebar-link">
                         <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg">
                             <div class="tooltip icon-container">
                                 <i class="fa-solid fa-user-secret text-indigo-400"></i>

@@ -10,4 +10,5 @@ class ProyekController extends Controller
     {
         return view('proyek');
     }
+    
 }
