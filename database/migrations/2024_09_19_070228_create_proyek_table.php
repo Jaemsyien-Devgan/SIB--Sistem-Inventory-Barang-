@@ -19,7 +19,7 @@ class CreateProyekTable extends Migration
             $table->string('kode_proyek');
             $table->string('nama_proyek');
             $table->date('start_date'); // Tanggal mulai proyek
-            $table->enum('status', ['Pending', 'In Progress', 'Completed']); // Status proyek
+            $table->enum('status', ['aktif', 'tidak_aktif']); // Status proyek
             $table->timestamps(); // created_at & updated_at
         });
     }

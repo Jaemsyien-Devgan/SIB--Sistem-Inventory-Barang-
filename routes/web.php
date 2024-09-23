@@ -28,13 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/{id}', [UserController::class, 'update'])->name('admin.update');
 
 
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/Product', [ProductController::class, 'index'])->name('product');
     Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
-    Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek');
 
 
     Route::get('/satuan', [SatuanController::class, 'index'])->name('satuan.index');
@@ -43,6 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/satuan/{satuan}', [SatuanController::class, 'destroy'])->name('satuan.destroy');
     Route::get('/satuan/{id}/edit', [SatuanController::class, 'edit'])->name('satuan.edit');
     Route::put('/satuan/{id}', [SatuanController::class, 'update'])->name('satuan.update');
+
+    Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek');
+    Route::post('/proyek/add', [ProyekController::class, 'store'])->name('proyek.store');
+    Route::get('/proyek/create', [ProyekController::class, 'create'])->name('proyek.create');
+    Route::delete('/proyek/{proyek}', [ProyekController::class, 'destroy'])->name('proyek.destroy');
+    Route::get('/proyek/{id}/edit', [ProyekController::class, 'edit'])->name('proyek.edit');
+    Route::put('/proyek/{id}', [ProyekController::class, 'update'])->name('proyek.update');
 
 
 
