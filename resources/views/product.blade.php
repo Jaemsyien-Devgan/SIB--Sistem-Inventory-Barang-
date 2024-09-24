@@ -11,7 +11,7 @@
                     <div class="p-6 text-gray-100 grid gap-6">
                         <div class="grid grid-cols-2 gap-6">
                             <div>
-                                <label for="kode_produk" class="block text-sm font-medium">Kode</label>
+                                <label for="kode_produk" class="block text-sm font-medium">Kode Product</label>
                                 <div class="relative">
                                     <input id="kode_produk"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md" type="text"
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label for="nama_produk" class="block text-sm font-medium">Nama</label>
+                                <label for="nama_produk" class="block text-sm font-medium">Nama Product</label>
                                 <div class="relative">
                                     <input id="nama_produk"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
@@ -35,11 +35,11 @@
                         </div>
                         <div class="grid grid-cols-2 gap-6">
                             <div>
-                                <label for="kuantitas" class="block text-sm font-medium">Kuantitas</label>
+                                <label for="harga" class="block text-sm font-medium">Harga Product</label>
                                 <div class="relative">
-                                    <input id="kuantitas"
+                                    <input id="harga"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="kuantitas" required />
+                                        type="text" name="harga" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
                                     </div>
@@ -145,16 +145,16 @@
                                             <tr>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                                    Nama</th>
+                                                    Kode Product</th>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                                    Singkatan</th>
+                                                    Nama Product</th>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                                    Deskripsi</th>
+                                                    Harga</th>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                                    Status</th>
+                                                    Satuan</th>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                                                     Aksi</th>
@@ -262,13 +262,13 @@
                         <tr>
                             <th
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Kode</th>
+                                Kode Product</th>
                             <th
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Nama</th>
+                                Nama Product</th>
                             <th
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Kuantitas</th>
+                                Harga</th>
                             <th
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                 Satuan</th>
@@ -289,7 +289,8 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <button
-                                    class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2">
+                                    class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2" onclick="openModal()">
+
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -314,16 +315,6 @@
         </div>
         <!-- Table End -->
 
-        <div class="mt-6 flex justify-end space-x-4">
-            <button
-                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-                Close
-            </button>
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                Save
-            </button>
-        </div>
     </div>
 
 
