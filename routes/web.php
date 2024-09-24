@@ -32,7 +32,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/Product', [ProductController::class, 'index'])->name('product');
     Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
 
 
@@ -57,8 +56,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
     Route::put('/supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
 
-
-
+    Route::get('/Product', [ProductController::class, 'index'])->name('product');
+    Route::post('/product/add', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
 });
 
 require __DIR__.'/auth.php';
