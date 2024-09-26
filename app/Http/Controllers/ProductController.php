@@ -18,6 +18,12 @@ class ProductController extends Controller
          $search = $request->input('search');
          $query = product::query();
          $satuan = Satuan::all();
+         $lastKodeProduct = product::orderBy('kode_produk', 'desc')->first();
+         if ($lastKodeProduct) {
+             $nextKodeProduct = str_pad($lastKodeProduct->kode_produk + 1, 4, '0', STR_PAD_LEFT);
+         } else {
+             $nextKodeProduct = '0001';
+         }
 
          // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
          if ($search) {
@@ -36,7 +42,7 @@ class ProductController extends Controller
              $products = $query->paginate($perPage); // Pagination
          }
 
-         return view('product', compact('satuan','products' ));
+         return view('product', compact('satuan','products', 'nextKodeProduct'));
     }
     public function create()
     /**

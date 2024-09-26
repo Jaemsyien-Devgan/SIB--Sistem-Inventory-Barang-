@@ -41,12 +41,25 @@ class AdministrasiController extends Controller
 public function store(Request $request)
     {
         $validate = $request->validate([
-
+            'kode_proyek' => 'required',
+            'nama_proyek' => 'required',
+            'status' => 'required',
             'proyek_id' => 'required|exists:proyek,id', // Ganti sesuai nama tabel
         ]);
         // dd($validate);
 
         Administrasi::create($request->all());
-        return redirect()->route('Administrasi.administrasi')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('Administrasi.administrasi')->with('success', 'Data Administrasi berhasil ditambahkan.');
+    }
+    public function destroy(Administrasi $administrasi)
+    {
+        $administrasi->delete();
+        return redirect()->route('Administrasi.administrasi')->with('success', 'Data Administrasi  berhasil dihapus');
+    }
+
+    public function edit($id)
+    {
+        $proyek = Administrasi::findOrFail($id);
+        return view('Administrasi.administrasi.edit', compact('administrasi'));
     }
 }

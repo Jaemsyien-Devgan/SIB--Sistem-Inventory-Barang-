@@ -15,6 +15,12 @@ class ProyekController extends Controller
         // Ambil nilai pencarian dari input search
         $search = $request->input('search');
         $query = Proyek::query();
+        $lastKodeProyek = Proyek::orderBy('kode_proyek', 'desc')->first();
+        if ($lastKodeProyek) {
+            $nextKodeProyek = str_pad($lastKodeProyek->kode_proyek + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $nextKodeProyek = '0001';
+        }
 
         $status = $request->input('status');
         if ($status) {
@@ -45,7 +51,7 @@ class ProyekController extends Controller
         } else {
             $proyeks = $query->paginate($perPage); // Pagination
         }
-        return view('proyek', compact('proyeks'));
+        return view('proyek', compact('proyeks', 'nextKodeProyek'));
     }
     public function create()
     {

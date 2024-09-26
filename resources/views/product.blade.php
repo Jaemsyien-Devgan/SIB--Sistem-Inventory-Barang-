@@ -15,8 +15,9 @@
                                 <label for="kode_produk" class="block text-sm font-medium">Kode Product</label>
                                 <div class="relative">
                                     <input id="kode_produk"
+                                    value="{{ $nextKodeProduct }}"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="kode_produk" required autofocus />
+                                        type="text" name="kode_produk" readonly autofocus />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                     </div>
@@ -47,11 +48,12 @@
                                 </div>
                             </div>
                             <div>
-                                <label for="satuan_produk" class="block text-sm font-medium" >Satuan</label>
+                                <label for="satuan_produk" class="block text-sm font-medium">Satuan</label>
                                 <div class="relative">
                                     <input id="satuan_produk"
                                         class="block mt-1 w-full pl-10 pr-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="satuan_produk" placeholder="Pilih Satuan" readonly onclick="openModal('modal_produk_1')" />
+                                        type="text" name="satuan_produk" placeholder="Pilih Satuan" readonly
+                                        onclick="openModal('modal_produk_1')" />
                                     <input id="satuan_id" type="hidden" name="satuan_id" />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-scale-balanced w-5 h-5 text-blue-400"></i>
@@ -126,7 +128,8 @@
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                         {{ $item->nama_satuan }}</td>
                                                     <td class="px-4 py-2 whitespace-nowrap text-sm font-medium">
-                                                        <button class="bg-green-100 text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out transform hover:scale-110 p-1 rounded-lg"
+                                                        <button
+                                                            class="bg-green-100 text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out transform hover:scale-110 p-1 rounded-lg"
                                                             onclick="selectSatuan('{{ $item->id }}', '{{ $item->nama_satuan }}')">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                                 viewBox="0 0 24 24">
@@ -236,11 +239,14 @@
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach ($products as $product)
                             <tr>
-                                <td class="text-center px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                <td
+                                    class="text-center px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                     {{ $product->kode_produk }}</td>
-                                <td class="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                <td
+                                    class="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                     {{ $product->nama_produk }}</td>
-                                <td class="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                <td
+                                    class="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                     {{ $product->harga }}</td>
                                 <td class="text-center px-6 py-4 whitespace-nowrap">
                                     <span
@@ -289,8 +295,8 @@
     </div>
 
     @foreach ($products as $product)
-        <div id="modal_produk_2_{{ $product->id }}" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
-            role="dialog" aria-modal="true">
+        <div id="modal_produk_2_{{ $product->id }}" class="fixed z-10 inset-0 overflow-y-auto hidden"
+            aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
@@ -383,12 +389,10 @@
     <script>
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
-            document.getElementById('modal_produk_2{{ $product->id }}').classList.remove('hidden');
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
-            document.getElementById('modal_produk_2{{ $product->id }}').classList.add('hidden');
         }
 
         function selectSatuan(id, nama) {
@@ -399,6 +403,7 @@
             // Menutup modal
             closeModal('modal_produk_1');
         }
+
         function changePerPage() {
             var perPage = document.getElementById('perPage').value;
             var currentUrl = new URL(window.location.href);

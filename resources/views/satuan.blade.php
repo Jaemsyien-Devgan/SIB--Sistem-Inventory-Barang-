@@ -35,7 +35,7 @@
                                 <div class="relative">
                                     <input id="kode_satuan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="kode_satuan" value="{{ old ('kode_satuan') }}"  required autofocus />
+                                        type="text" name="kode_satuan" value="{{ $nextKodeSatuan }}"  readonly autofocus />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                     </div>

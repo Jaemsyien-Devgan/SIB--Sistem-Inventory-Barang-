@@ -67,7 +67,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/Administrasi', [AdministrasiController::class, 'index'])->name('Administrasi.administrasi');
     Route::post('/Administrasi/add', [AdministrasiController::class, 'store'])->name('Administrasi.administrasi.store');
-    
+    Route::get('/Administrasi/create', [AdministrasiController::class, 'create'])->name('Administrasi.administrasi.create');
+    Route::delete('/Administrasi/{administrasi}', [AdministrasiController::class, 'destroy'])->name('Administrasi.administrasi.destroy');
+    Route::get('/Administrasi/{id}/edit', [AdministrasiController::class, 'edit'])->name('Administrasi.administrasi.edit');
+
 });
 
 require __DIR__.'/auth.php';

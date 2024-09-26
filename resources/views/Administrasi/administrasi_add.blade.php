@@ -160,7 +160,7 @@
                 </thead>
                 <tbody
                     class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 items-center text-center justify-center">
-                @foreach ($proyek as $item)
+                @foreach ($administrasis as $item)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                             {{ $item->kode_proyek }}
@@ -185,10 +185,12 @@
                                 </svg>
                                 Edit
                             </button>
-                            <form action="" method="POST" class="inline">
+                            <form action="{{ route('Administrasi.administrasi.destroy', $item->id) }}}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
                                 <button type="submit"
                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-600"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus satuan ini?')">
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus Administrasi ini?')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -202,6 +204,11 @@
                 @endforeach
                 </tbody>
             </table>
+            @if ($administrasis instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    <div class="m-6">
+                        {{ $administrasis->appends(request()->query())->links() }}
+                    </div>
+                @endif
         </div>
     </div>
     <!-- Table End -->
@@ -245,9 +252,6 @@
                                                     Nama Proyek</th>
                                                 <th
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                                    Tanggal Dimulai</th>
-                                                <th
-                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                                                     Status</th>
                                                 <th
                                                     class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
@@ -261,8 +265,6 @@
                                                         {{ $item->kode_proyek }}
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                             {{ $item->nama_proyek }}
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                                            {{ $item->tanggal_dimulai }}
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                             {{ $item->status }}
                                                     <td class="px-4 py-2 whitespace-nowrap text-sm font-medium">

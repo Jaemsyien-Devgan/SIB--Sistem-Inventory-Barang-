@@ -16,6 +16,12 @@ class SatuanController extends Controller
         // Ambil nilai pencarian dari input search
         $search = $request->input('search');
         $query = Satuan::query();
+        $lastKodeSatuan = Satuan::orderBy('kode_satuan', 'desc')->first();
+        if ($lastKodeSatuan) {
+            $nextKodeSatuan = str_pad($lastKodeSatuan->kode_satuan + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $nextKodeSatuan = '0001';
+        }
 
         // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
         if ($search) {
@@ -34,7 +40,7 @@ class SatuanController extends Controller
             $satuans = $query->paginate($perPage); // Pagination
         }
 
-        return view('satuan', compact('satuans'));
+        return view('satuan', compact('satuans', 'nextKodeSatuan'));
     }
 
 
