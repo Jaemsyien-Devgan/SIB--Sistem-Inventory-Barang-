@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +12,12 @@
             width: 250px;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .sidebar-collapsed {
             width: 70px;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .sidebar-content {
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
@@ -23,12 +25,15 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .sidebar-expanded .sidebar-content {
             opacity: 1;
         }
+
         .tooltip {
             position: relative;
         }
+
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 120px;
@@ -45,10 +50,12 @@
             opacity: 0;
             transition: opacity 0.3s, visibility 0.3s;
         }
+
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
+
         .menu-item {
             position: relative;
             height: 40px;
@@ -57,6 +64,7 @@
             padding: 0 16px;
             transition: background-color 0.2s ease;
         }
+
         .icon-container {
             width: 24px;
             height: 24px;
@@ -66,15 +74,18 @@
             margin-right: 16px;
             flex-shrink: 0;
         }
+
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
         }
+
         .dropdown-content.show {
             max-height: 1000px;
             transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .dropdown-item {
             padding-left: 56px;
             height: 32px;
@@ -84,26 +95,43 @@
             transform: translateY(-20px);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
+
         .dropdown-content.show .dropdown-item {
             opacity: 1;
             transform: translateY(0);
         }
-        .dropdown-content.show .dropdown-item:nth-child(1) { transition-delay: 0.1s; }
-        .dropdown-content.show .dropdown-item:nth-child(2) { transition-delay: 0.2s; }
-        .dropdown-content.show .dropdown-item:nth-child(3) { transition-delay: 0.3s; }
-        .dropdown-content.show .dropdown-item:nth-child(4) { transition-delay: 0.4s; }
+
+        .dropdown-content.show .dropdown-item:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .dropdown-content.show .dropdown-item:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .dropdown-content.show .dropdown-item:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .dropdown-content.show .dropdown-item:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
         .chevron-icon {
             transition: transform 0.3s ease;
         }
+
         .chevron-icon.rotate {
             transform: rotate(180deg);
         }
     </style>
 </head>
+
 <body class="bg-gray-100 ">
     <div class="flex">
         <!-- Sidebar -->
-        <aside id="sidebar" class="fixed top-0 left-0 bg-gray-800 text-white h-screen sidebar-collapsed flex flex-col z-50">
+        <aside id="sidebar"
+            class="fixed top-0 left-0 bg-gray-800 text-white h-screen sidebar-collapsed flex flex-col z-50">
             <div class="ml-2 p-4 flex items-center">
                 <button id="toggleSidebar" class="text-white focus:outline-none">
                     <i id="sidebarIcon" class="fas fa-bars fa-lg"></i>
@@ -122,8 +150,49 @@
                             <span class="sidebar-content">Dashboard</span>
                         </li>
                     </a>
+
                     <div class="sidebar-link">
-                        <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg cursor-pointer" id="aapDropdown">
+                        <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg cursor-pointer dropdown-trigger"
+                            id="appDropdown">
+                            <div class="tooltip icon-container">
+                                <i class="fa-solid fa-landmark text-yellow-400"></i>
+                                <span class="tooltiptext">Administrasi</span>
+                            </div>
+                            <span class="sidebar-content">Administrasi</span>
+                            <i class="fas fa-chevron-down ml-auto sidebar-content chevron-icon"></i>
+                        </li>
+                        <ul class="dropdown-content bg-gray-700 rounded-lg mt-1">
+
+                            <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
+                                <a href="{{ route('Administrasi.administrasi') }}" class="w-full flex items-center ">
+
+                                    <i class="fa-solid fa-database text-purple-400 mr-2"></i>
+
+                                    <span>APP</span>
+
+                                </a>
+
+                            </li>
+
+                            {{-- <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
+                                <a href="{{ route('product') }}" class="w-full flex items-center">
+
+                                    <i class="fas fa-clipboard-list text-purple-400 mr-2"></i>
+
+                                    <span>Bon Permintaan </span>
+
+                                </a>
+
+                            </li> --}}
+
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-link">
+                        <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg cursor-pointer dropdown-trigger"
+                            id="aapDropdown">
                             <div class="tooltip icon-container">
                                 <i class="fas fa-users text-green-400"></i>
                                 <span class="tooltiptext">Administrasi Aplikasi</span>
@@ -133,40 +202,94 @@
                         </li>
                         <ul class="dropdown-content bg-gray-700 rounded-lg mt-1">
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
                                 <a href="{{ route('proyek') }}" class="w-full flex items-center ">
+
                                     <i class="fas fa-project-diagram text-yellow-400 mr-2 "></i>
+
                                     <span>Tabel Proyek</span>
+
                                 </a>
+
                             </li>
+
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
                                 <a href="{{ route('product') }}" class="w-full flex items-center">
+
                                     <i class="fas fa-box-open text-purple-400 mr-2"></i>
+
                                     <span>Tabel Produk</span>
+
                                 </a>
+
                             </li>
+
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
-                                <a href="{{route('supplier')}}" class="w-full flex items-center">
+
+                                <a href="{{ route('supplier') }}" class="w-full flex items-center">
+
                                     <i class="fas fa-handshake text-orange-400 mr-2"></i>
+
                                     <span>Tabel Rekanan</span>
+
                                 </a>
+
                             </li>
+
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
                                 <a href="{{ route('satuan.index') }}" class="w-full flex items-center">
+
                                     <i class="fas fa-balance-scale text-pink-400 mr-2"></i>
+
                                     <span>Tabel Satuan</span>
+
                                 </a>
+
                             </li>
                         </ul>
                     </div>
-                    <a href="{{ route('inventory') }}" class="sidebar-link">
-                        <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg">
+
+                    <div class="sidebar-link">
+                        <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg cursor-pointer dropdown-trigger"
+                            id="inventoryDropdown">
                             <div class="tooltip icon-container">
-                                <i class="fas fa-box text-red-400"></i>
+                                <i class="fas fa-boxes text-red-400"></i>
                                 <span class="tooltiptext">Inventory</span>
                             </div>
                             <span class="sidebar-content">Inventory</span>
+                            <i class="fas fa-chevron-down ml-auto sidebar-content chevron-icon"></i>
                         </li>
-                    </a>
+                        <ul class="dropdown-content bg-gray-700 rounded-lg mt-1">
+
+                            <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
+                                <a href="{{ route('lpb') }}" class="w-full flex items-center ">
+
+                                    <i class="fas fa-truck-loading text-yellow-400 mr-2"></i>
+
+                                    <span>Laporan Permintaan</span>
+
+                                </a>
+
+                            </li>
+
+                            <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+
+                                <a href="{{ route('product') }}" class="w-full flex items-center">
+
+                                    <i class="fas fa-clipboard-list text-purple-400 mr-2"></i>
+
+                                    <span>Bon Permintaan </span>
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+
                     <a href="{{ route('admin') }}" class="sidebar-link">
                         <li class="menu-item mb-2 hover:bg-gray-700 rounded-lg">
                             <div class="tooltip icon-container">
@@ -194,66 +317,77 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
-            const toggleButton = document.getElementById('toggleSidebar');
-            const sidebarIcon = document.getElementById('sidebarIcon');
-            const aapDropdown = document.getElementById('aapDropdown');
-            const dropdownContent = aapDropdown.nextElementSibling;
-            const chevronIcon = aapDropdown.querySelector('.chevron-icon');
+    const sidebar = document.getElementById('sidebar');
+    const toggleButton = document.getElementById('toggleSidebar');
+    const sidebarIcon = document.getElementById('sidebarIcon');
+    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
 
-            function setSidebarState(isExpanded) {
-                localStorage.setItem('sidebarExpanded', isExpanded);
-                if (isExpanded) {
-                    sidebar.classList.add('sidebar-expanded');
-                    sidebar.classList.remove('sidebar-collapsed');
-                    sidebarIcon.classList.remove('fa-bars');
-                    sidebarIcon.classList.add('fa-times');
-                } else {
-                    sidebar.classList.remove('sidebar-expanded');
-                    sidebar.classList.add('sidebar-collapsed');
-                    sidebarIcon.classList.remove('fa-times');
-                    sidebarIcon.classList.add('fa-bars');
-                    dropdownContent.classList.remove('show');
-                    chevronIcon.classList.remove('rotate');
-                }
-            }
+    function setSidebarState(isExpanded) {
+        localStorage.setItem('sidebarExpanded', isExpanded);
+        if (isExpanded) {
+            sidebar.classList.add('sidebar-expanded');
+            sidebar.classList.remove('sidebar-collapsed');
+            sidebarIcon.classList.remove('fa-bars');
+            sidebarIcon.classList.add('fa-times');
+        } else {
+            sidebar.classList.remove('sidebar-expanded');
+            sidebar.classList.add('sidebar-collapsed');
+            sidebarIcon.classList.remove('fa-times');
+            sidebarIcon.classList.add('fa-bars');
+            closeAllDropdowns();
+        }
+    }
 
-            const sidebarExpanded = localStorage.getItem('sidebarExpanded') === 'true';
-            setSidebarState(sidebarExpanded);
-
-            toggleButton.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const newState = !sidebar.classList.contains('sidebar-expanded');
-                setSidebarState(newState);
-            });
-
-            aapDropdown.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (sidebar.classList.contains('sidebar-expanded')) {
-                    dropdownContent.classList.toggle('show');
-                    chevronIcon.classList.toggle('rotate');
-                }
-            });
-
-            const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            });
-
-            sidebar.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-
-            document.addEventListener('click', function() {
-                if (sidebar.classList.contains('sidebar-expanded')) {
-                    dropdownContent.classList.remove('show');
-                    chevronIcon.classList.remove('rotate');
-                }
-            });
+    function closeAllDropdowns() {
+        dropdownTriggers.forEach(trigger => {
+            const dropdownContent = trigger.nextElementSibling;
+            const chevronIcon = trigger.querySelector('.chevron-icon');
+            dropdownContent.classList.remove('show');
+            chevronIcon.classList.remove('rotate');
         });
+    }
+
+    const sidebarExpanded = localStorage.getItem('sidebarExpanded') === 'true';
+    setSidebarState(sidebarExpanded);
+
+    toggleButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const newState = !sidebar.classList.contains('sidebar-expanded');
+        setSidebarState(newState);
+    });
+
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (sidebar.classList.contains('sidebar-expanded')) {
+                const dropdownContent = this.nextElementSibling;
+                const chevronIcon = this.querySelector('.chevron-icon');
+                dropdownContent.classList.toggle('show');
+                chevronIcon.classList.toggle('rotate');
+            }
+        });
+    });
+
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+
+    sidebar.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        if (sidebar.classList.contains('sidebar-expanded')) {
+            closeAllDropdowns();
+        }
+    });
+});
+
     </script>
 </body>
+
 </html>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\LPBController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProyekController;
@@ -32,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
 
 
     Route::get('/satuan', [SatuanController::class, 'index'])->name('satuan.index');
@@ -62,6 +62,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
+
+    Route::get('/LPB', [LPBController::class, 'index'])->name('lpb');
+
+    Route::get('/Administrasi', [AdministrasiController::class, 'index'])->name('Administrasi.administrasi');
+    Route::post('/Administrasi/add', [AdministrasiController::class, 'store'])->name('Administrasi.administrasi.store');
+    
 });
 
 require __DIR__.'/auth.php';

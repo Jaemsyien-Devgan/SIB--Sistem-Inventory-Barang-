@@ -45,23 +45,44 @@ class SatuanController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'kode_satuan' => 'required|unique:satuan',
-            'nama_satuan' => 'required',
-            'singkatan' => 'required',
-            'deskripsi' => 'required',
-        ]);
+{
+    // Custom messages untuk validasi
+    $messages = [
+        'kode_satuan.required' => 'Kode satuan wajib diisi.',
+        'kode_satuan.unique' => 'Kode satuan sudah terdaftar, silakan gunakan kode yang berbeda.',
+        'nama_satuan.unique' => 'Nama satuan sudah terdaftar, silakan gunakan nama yang berbeda.',
+        'nama_satuan.required' => 'Nama satuan wajib diisi.',
+        'singkatan.required' => 'Singkatan wajib diisi.',
+        'deskripsi.required' => 'Deskripsi wajib diisi.',
+        'singkatan.max' => 'Singkatan maksimal 5 karakter.',
+        'deskripsi.min' => 'Deskripsi minimal  karakter.',
+    ];
 
+    // Validasi dengan custom error messages
+    $validated = $request->validate([
+        'kode_satuan' => 'required|unique:satuan',
+        'nama_satuan' => 'required|unique:satuan',
+        'singkatan' => 'required|max:5',
+        'deskripsi' => 'required|min:5',
+    ], $messages);
+
+    // Jika validasi lolos, buat satuan baru
+    try {
         Satuan::create($validated);
 
-        return redirect()->route('satuan.index')->with('success', 'Satuan added successfully');
+        // Redirect dengan pesan sukses
+        return redirect()->route('satuan.index')->with('success', 'Satuan berhasil ditambahkan!');
+    } catch (\Exception $e) {
+        // Menangani jika ada error saat menyimpan data
+        return redirect()->route('satuan.create')->with('error', 'Terjadi kesalahan saat menambahkan satuan. Silakan coba lagi.');
     }
+}
+
 
     public function destroy(Satuan $satuan)
     {
         $satuan->delete();
-        return redirect()->route('satuan.index')->with('success', 'Satuan berhasil dihapus');
+        return redirect()->route('satuan.index')->with('success', 'Data Satuan berhasil dihapus');
     }
 
     public function edit($id)

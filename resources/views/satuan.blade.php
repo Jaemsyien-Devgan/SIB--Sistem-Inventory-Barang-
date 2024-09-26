@@ -6,13 +6,28 @@
 
     <div class="py-2">
         <div class="w-full mx-auto">
-
-            <form action="{{ route('satuan.store') }}" method="POST">
-                @csrf
-                <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-4">
+            <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-4">
+                <div class="grid grid-cols-2 gap-6">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2 pl-6">
                         Tambahkan Data Satuan
                     </h2>
+
+                    @if (session('success'))
+                        <div class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                </div>
+
+                <form action="{{ route('satuan.store') }}" method="POST">
+                    @csrf
                     <div class="p-6 text-gray-100 grid gap-6">
                         <div class="grid grid-cols-2 gap-6">
                             <div>
@@ -20,22 +35,28 @@
                                 <div class="relative">
                                     <input id="kode_satuan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="kode_satuan" required autofocus />
+                                        type="text" name="kode_satuan" value="{{ old ('kode_satuan') }}"  required autofocus />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                     </div>
                                 </div>
+                                @error('kode_satuan')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             </div>
                             <div>
                                 <label for="nama_satuan" class="block text-sm font-medium">Nama Satuan</label>
                                 <div class="relative">
                                     <input id="nama_satuan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="nama_satuan" required />
+                                        type="text" name="nama_satuan" value="{{ old ('nama_satuan') }}" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
                                     </div>
                                 </div>
+                                @error('nama_satuan')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-6">
@@ -44,22 +65,28 @@
                                 <div class="relative">
                                     <input id="singkatan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="singkatan" required />
+                                        type="text" name="singkatan" value="{{ old ('singkatan') }}" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
                                     </div>
                                 </div>
+                                @error('singkatan')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             </div>
                             <div>
                                 <label for="deskripsi" class="block text-sm font-medium">Deskripsi</label>
                                 <div class="relative">
                                     <input id="deskripsi"
                                         class="block mt-1 w-full pl-10 pr-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="deskripsi" required />
+                                        type="text" name="deskripsi" value="{{ old ('deskripsi') }}" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-scale-balanced w-5 h-5 text-blue-400"></i>
                                     </div>
                                 </div>
+                                @error('deskripsi')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             </div>
                         </div>
                     </div>
@@ -328,6 +355,14 @@
             currentUrl.searchParams.set('per_page', perPage);
             window.location.href = currentUrl.toString();
         }
+        setTimeout(function() {
+        let alert = document.querySelector('.bg-green-500');
+        if (alert) {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500); // Hapus setelah transisi selesai
+        }
+        }, 3000);
     </script>
 
 
