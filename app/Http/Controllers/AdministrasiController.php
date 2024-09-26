@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Administrasi;
 use App\Models\Proyek;
+use App\Models\Satuan;
+use App\Models\SubAnggaran;
 use Illuminate\Http\Request;
 
 class AdministrasiController extends Controller
@@ -59,7 +61,21 @@ public function store(Request $request)
 
     public function edit($id)
     {
-        $proyek = Administrasi::findOrFail($id);
+        $administrasi = Administrasi::findOrFail($id);
         return view('Administrasi.administrasi.edit', compact('administrasi'));
     }
+    public function show($id)
+{
+    $administrasi = Administrasi::findOrFail($id);
+    $subAnggarans = $administrasi->subAnggarans;
+    $satuan = Satuan::all();
+    $lastKodeAnggaran = SubAnggaran::orderBy('kode_anggaran', 'desc')->first();
+        if ($lastKodeAnggaran) {
+            $nextKodeAnggaran = str_pad($lastKodeAnggaran->kode_anggaran + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $nextKodeAnggaran = '0001';
+        }
+    return view('Administrasi.show', compact('administrasi','subAnggarans','satuan','nextKodeAnggaran'));
+}
+
 }

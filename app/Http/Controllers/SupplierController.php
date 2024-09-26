@@ -15,6 +15,12 @@ class SupplierController extends Controller
         // Ambil nilai pencarian dari input search
         $search = $request->input('search');
         $query = supplier::query();
+        $lastKodeSupplier = supplier::orderBy('kode_supplier', 'desc')->first();
+        if ($lastKodeSupplier) {
+            $nextKodeSupplier = str_pad($lastKodeSupplier->kode_supplier + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $nextKodeSupplier = '0001';
+        }
 
         $status = $request->input('status');
         if ($status) {
@@ -48,7 +54,7 @@ class SupplierController extends Controller
         } else {
             $suppliers = $query->paginate($perPage); // Pagination
         }
-        return view('supplier', compact('suppliers'));
+        return view('supplier', compact('suppliers', 'nextKodeSupplier'));
     }
     public function create()
     {

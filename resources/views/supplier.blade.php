@@ -17,8 +17,9 @@
                                 <label for="kode_supplier" class="block text-sm font-medium">Kode Supplier</label>
                                 <div class="relative">
                                     <input id="kode_supplier"
+                                    value="{{ $nextKodeSupplier }}"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="kode_supplier" required autofocus />
+                                        type="text" name="kode_supplier" readonly autofocus />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-barcode text-lg text-yellow-400"></i>
                                     </div>

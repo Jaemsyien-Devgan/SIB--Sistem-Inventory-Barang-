@@ -54,8 +54,6 @@ class SatuanController extends Controller
 {
     // Custom messages untuk validasi
     $messages = [
-        'kode_satuan.required' => 'Kode satuan wajib diisi.',
-        'kode_satuan.unique' => 'Kode satuan sudah terdaftar, silakan gunakan kode yang berbeda.',
         'nama_satuan.unique' => 'Nama satuan sudah terdaftar, silakan gunakan nama yang berbeda.',
         'nama_satuan.required' => 'Nama satuan wajib diisi.',
         'singkatan.required' => 'Singkatan wajib diisi.',

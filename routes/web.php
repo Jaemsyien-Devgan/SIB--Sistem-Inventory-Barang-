@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\SatuanController;
+use App\Http\Controllers\SubAnggaranController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/Administrasi/create', [AdministrasiController::class, 'create'])->name('Administrasi.administrasi.create');
     Route::delete('/Administrasi/{administrasi}', [AdministrasiController::class, 'destroy'])->name('Administrasi.administrasi.destroy');
     Route::get('/Administrasi/{id}/edit', [AdministrasiController::class, 'edit'])->name('Administrasi.administrasi.edit');
+    Route::get('/Administrasi/{id}', [AdministrasiController::class, 'show'])->name('Administrasi.show');
+
+    Route::post('/sub_anggaran/store', [SubAnggaranController::class, 'store'])->name('sub_anggaran.store');
+    Route::get('/sub_anggaran/{id}', [SubAnggaranController::class, 'index'])->name('Administrasi.sub_anggaran');
 
 });
 

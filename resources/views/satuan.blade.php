@@ -40,9 +40,6 @@
                                         <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                     </div>
                                 </div>
-                                @error('kode_satuan')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
                             </div>
                             <div>
                                 <label for="nama_satuan" class="block text-sm font-medium">Nama Satuan</label>

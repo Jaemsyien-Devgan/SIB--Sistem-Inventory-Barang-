@@ -12,7 +12,7 @@
                         <div class="relative">
                             <input id="kode_proyek"
                                 class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md" type="text"
-                                name="kode_proyek" value="{{ old('kode_proyek') }}" required autofocus />
+                                name="kode_proyek" value="{{ old('kode_proyek') }}" readonly  />
                                 <input id="proyek_id" type="hidden" name="proyek_id" />
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24"
@@ -37,8 +37,8 @@
                             <div class="relative">
                                 <input id="nama_proyek"
                                     class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                    type="text" name="nama_proyek" value="{{ old('nama_proyek') }}" required
-                                    autofocus />
+                                    type="text" name="nama_proyek" value="{{ old('nama_proyek') }}" readonly
+                                     />
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="h-5 w-5 text-pink-400" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -54,7 +54,7 @@
                                 <div class="relative">
                                     <input id="status"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="status" value="{{ old('status') }}" required autofocus />
+                                        type="text" name="status" value="{{ old('status') }}" readonly  />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <svg class="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
@@ -176,15 +176,12 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <button
-                                class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            <a href="{{ route('Administrasi.show', $item->id) }}" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
-                                Edit
-                            </button>
+                                Detail
+                            </a>
                             <form action="{{ route('Administrasi.administrasi.destroy', $item->id) }}}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
