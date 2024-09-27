@@ -15,4 +15,8 @@ class Administrasi extends Model
     {
         return $this->belongsTo(Proyek::class);
     }
+    public function subAnggarans()
+    {
+        return $this->hasMany(SubAnggaran::class);
+    }
 }

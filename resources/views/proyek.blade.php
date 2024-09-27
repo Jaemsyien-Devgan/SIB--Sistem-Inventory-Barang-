@@ -4,6 +4,23 @@
 
 @section('content')
 
+@if (session('success'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000,
+            background: '#e2f9e1', // background alert
+            toast: true, // tampilkan sebagai toast
+            position: 'top-end' // posisi di kanan atas
+        });
+    });
+</script>
+@endif
+
     <div class="py-2">
         <div class="w-full mx-auto">
             <form action="{{ route('proyek.store') }}" method="POST">
@@ -24,6 +41,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                     </div>
+                                    @error('kode_proyek')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                                 </div>
                             </div>
                             <div>
@@ -36,6 +56,9 @@
                                         <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
                                     </div>
                                 </div>
+                                @error('nama_proyek')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-6">
@@ -48,6 +71,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-calendar h-5 w-5 text-green-400"></i>
                                     </div>
+                                    @error('start_date')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div>
@@ -66,6 +92,9 @@
                                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                         <i class="fa-solid fa-chevron-down h-5 w-5 text-gray-400"></i>
                                     </div>
+                                    @error('status')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -132,9 +161,9 @@
                         </div>
                     </form>
                 </div>
-                <form method="GET" action="{{ route('proyek') }}">
+                <form id="searchForm" method="GET" action="{{ route('proyek') }}">
                     <div class="relative">
-                        <input type="text" name="search" placeholder="Cari"
+                        <input type="text" id="searchInput" name="search" placeholder="Cari"
                             class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-4 block w-full appearance-none leading-normal focus:outline-none focus:ring-0 focus:border-blue-500 pl-10"
                             value="{{ request()->get('search') }}">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -170,7 +199,7 @@
                     </thead>
                     <tbody
                         class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 items-center text-center justify-center">
-                        @foreach ($proyeks as $proyek)
+                        @forelse ($proyeks as $proyek)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                     {{ $proyek->kode_proyek }}
@@ -215,7 +244,13 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
+                                    Tidak ada proyek yang ditemukan.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
@@ -256,7 +291,7 @@
                                                 <input id="kode_proyek"
                                                     class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
                                                     type="text" name="kode_proyek" value="{{ $proyek->kode_proyek }}"
-                                                    required autofocus />
+                                                    readonly autofocus />
                                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                                     <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                                 </div>
@@ -350,6 +385,37 @@
         document.getElementById('status-filter').addEventListener('change', function() {
             console.log('Status changed to: ' + this.value);
             document.getElementById('status-form').submit();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let timeout = null;
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                const searchTerm = this.value;
+
+                if (searchTerm.length > 0) {
+                    timeout = setTimeout(function() {
+                        const form = document.getElementById('searchForm');
+                        form.submit(); // Submit form setelah 500ms
+                    }, 500);
+                } else {
+                    // Jika input kosong, submit form untuk menampilkan semua data
+                    timeout = setTimeout(function() {
+                        const form = document.getElementById('searchForm');
+                        form.submit(); // Kembali ke semua data
+                    }, 500);
+                }
+            });
+
+            // Mengatur fokus ke input hanya jika ada pencarian di URL
+            if (window.location.search.includes('search=')) {
+                searchInput.focus();
+                searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+            }
         });
     </script>
 

@@ -59,12 +59,24 @@ class ProyekController extends Controller
     }
     public function store(Request $request)
     {
+        $messages = [
+            'kode_proyek.unique' => 'Kode proyek sudah terdaftar, silakan gunakan kode yang berbeda.',
+            'nama_proyek.required' => 'Nama proyek wajib diisi.',
+            'nama_proyek.min' => 'Nama proyek minimal 5 karakter.',
+            'nama_proyek.max' => 'Nama proyek maksimal 255 karakter.',
+           'start_date.required' => 'Tanggal mulai wajib diisi.',
+           'status.required' => 'Status wajib dipilih.',
+           'status.in' => 'Status harus aktif atau tidak aktif.',
+           'start_date.date' => 'Tanggal mulai harus dalam format tanggal.',
+
+        ];
+
         $validated = $request->validate([
             'kode_proyek' => 'required|unique:proyek',
-            'nama_proyek' => 'required',
+            'nama_proyek' => 'required|min:5|max:255',
             'start_date' => 'required',
             'status' => 'required|in:aktif,tidak_aktif',
-        ]);
+        ], $messages);
 
         Proyek::create($validated);
 

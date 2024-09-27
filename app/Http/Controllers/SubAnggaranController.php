@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrasi;
 use App\Models\SubAnggaran;
 use Illuminate\Http\Request;
 
@@ -9,16 +10,16 @@ class SubAnggaranController extends Controller
 {
     public function index($id)
 {
+    // Ambil data administrasi berdasarkan ID
+    $administrasi = Administrasi::findOrFail($id);
+
+    // Ambil semua sub_anggarans terkait dengan administrasi ini
     $subAnggarans = SubAnggaran::where('administrasi_id', $id)->get();
 
-    // Debugging line to check if $subAnggarans is empty
-    if ($subAnggarans->isEmpty()) {
-        // Handle the case where no records are found
-        return view('Administrasi.sub_anggaran', compact('subAnggarans'))->with('message', 'No records found.');
-    }
-
-    return view('Administrasi.sub_anggaran', compact('subAnggarans'));
+    // Jika tidak ada sub_anggarans ditemukan, kita bisa menampilkan pesan di tampilan
+    return view('Administrasi.sub_anggaran', compact('administrasi', 'subAnggarans'));
 }
+
 
 
     public function store(Request $request)

@@ -3,6 +3,22 @@
 @section('title', 'Product')
 
 @section('content')
+@if (session('success'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000,
+            background: '#e2f9e1', // background alert
+            toast: true, // tampilkan sebagai toast
+            position: 'top-end' // posisi di kanan atas
+        });
+    });
+</script>
+@endif
 
     <div class="py-2">
         <div class="w-full mx-auto">
@@ -33,6 +49,9 @@
                                         <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
                                     </div>
                                 </div>
+                                @error('nama_produk')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-6">
@@ -46,6 +65,9 @@
                                         <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
                                     </div>
                                 </div>
+                                @error('harga')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="satuan_produk" class="block text-sm font-medium">Satuan</label>
@@ -59,13 +81,17 @@
                                         <i class="fa-solid fa-scale-balanced w-5 h-5 text-blue-400"></i>
                                     </div>
                                     <button type="button" class="absolute right-2 top-1.5 text-white rounded-md p-1"
-                                        onclick="openModal('modal_produk_1')">
-                                        <svg class="w-5 h-5 hover:text-blue-400" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                        </svg>
-                                    </button>
+                                    onclick="openModal('modal_produk_1')">
+                                    <svg class="w-5 h-5 hover:text-blue-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                            @error('satuan_id')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -93,18 +119,18 @@
                             <div class="mt-4">
                                 <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
                                     <div class="relative">
-                                        <input placeholder="Cari"
+                                        <input id="searchInput" placeholder="Cari"
                                             class="appearance-none bg-gray-700 rounded-md border border-gray-600 pl-10 pr-4 py-2 w-full text-sm placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                                         <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                             <svg class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="overflow-x-auto rounded-lg border border-gray-700">
                                     <table class="min-w-full divide-y divide-gray-700">
                                         <thead class="bg-gray-800">
@@ -237,7 +263,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                        @foreach ($products as $product)
+                        @forelse ($products as $product)
                             <tr>
                                 <td
                                     class="text-center px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
@@ -247,7 +273,8 @@
                                     {{ $product->nama_produk }}</td>
                                 <td
                                     class="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                    {{ $product->harga }}</td>
+                                    {{number_format ($product->harga, 2) }}</td>
+
                                 <td class="text-center px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{ $product->satuan->nama_satuan }}</span>
@@ -279,7 +306,14 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
+                                    Tidak ada Produk yang ditemukan.
+                                </td>
+                            </tr>
+                        @endforelse
+
                         <!-- Add more rows as needed -->
                     </tbody>
                 </table>
@@ -410,5 +444,48 @@
             currentUrl.searchParams.set('per_page', perPage);
             window.location.href = currentUrl.toString();
         }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const tableBody = document.querySelector('tbody');
+            const originalRows = Array.from(tableBody.querySelectorAll('tr'));
+
+            // Fungsi untuk memfilter dan memperbarui tabel
+            function filterTable() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredRows = originalRows.filter(row => {
+                    const kodeSatuan = row.cells[0].textContent.toLowerCase();
+                    const namaSatuan = row.cells[1].textContent.toLowerCase();
+                    return (
+                        kodeSatuan.includes(searchTerm) ||
+                        namaSatuan.includes(searchTerm)
+                    );
+                });
+
+                // Clear the table body
+                tableBody.innerHTML = '';
+
+                // Jika tidak ada hasil, tambahkan pesan
+                if (filteredRows.length === 0) {
+                    const noResultsRow = document.createElement('tr');
+                    const noResultsCell = document.createElement('td');
+                    noResultsCell.colSpan = 3;  // Mengatur colspan sesuai jumlah kolom
+                    noResultsCell.className = 'px-6 py-4 text-center text-sm text-gray-500';
+                    noResultsCell.textContent = 'Daftar satuan tidak ditemukan';
+                    noResultsRow.appendChild(noResultsCell);
+                    tableBody.appendChild(noResultsRow);
+                } else {
+                    // Tambahkan baris hasil pencarian
+                    filteredRows.forEach(row => {
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
+
+            // Event listener untuk input pencarian
+            searchInput.addEventListener('input', filterTable);
+        });
     </script>
 @endsection

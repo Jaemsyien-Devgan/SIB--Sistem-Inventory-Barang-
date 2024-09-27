@@ -1,3 +1,11 @@
+<style>
+    [x-cloak] {
+        display: none;
+    }
+</style>
+
+
+
 <header class="bg-white shadow-sm w-full ">
     <div class="bg-gray-800 w-full mx-auto px-2 sm:px-3 lg:px-4  rounded-lg">
         <div class="flex justify-between items-center py-3">
@@ -21,6 +29,7 @@
 
                         <div
                             x-show="open"
+                            x-cloak
                             x-transition:enter="transition ease-out duration-100"
                             x-transition:enter-start="transform opacity-0 scale-95"
                             x-transition:enter-end="transform opacity-100 scale-100"

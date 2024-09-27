@@ -59,7 +59,7 @@ class SatuanController extends Controller
         'singkatan.required' => 'Singkatan wajib diisi.',
         'deskripsi.required' => 'Deskripsi wajib diisi.',
         'singkatan.max' => 'Singkatan maksimal 5 karakter.',
-        'deskripsi.min' => 'Deskripsi minimal  karakter.',
+        'deskripsi.min' => 'Deskripsi minimal 5 karakter.',
     ];
 
     // Validasi dengan custom error messages

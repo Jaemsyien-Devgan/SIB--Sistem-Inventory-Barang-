@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sub_anggarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('administrasi_id')->constrained('administrasi'); // Foreign key untuk proyek
+            $table->foreignId('administrasi_id')->constrained('administrasi')->onDelete('cascade'); // Foreign key untuk proyek
             $table->string('kode_anggaran');
             $table->string('nama_anggaran');
             $table->foreignId('satuan_id')->constrained('satuan'); // Foreign key untuk satuan

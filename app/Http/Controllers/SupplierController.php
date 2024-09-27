@@ -62,19 +62,35 @@ class SupplierController extends Controller
     }
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $messages = [
+            'kode_supplier.required' => 'Kode supplier harus diisi',
+            'kode_supplier.unique' => 'Kode supplier sudah ada',
+            'nama_supplier.required' => 'Nama supplier harus diisi',
+            'alamat_supplier.required' => 'Alamat supplier harus diisi',
+            'telepon_supplier.required' => 'Telepon supplier harus diisi',
+            'telepon_supplier.numeric' => 'Telepon supplier harus berupa angka',
+            'tanggal_bergabung.required' => 'Tanggal bergabung harus diisi',
+            'tanggal_bergabung.date' => 'Tanggal bergabung harus berupa tanggal',
+            'tanggal_berakhir.required' => 'Tanggal berakhir harus diisi',
+            'tanggal_berakhir.date' => 'Tanggal berakhir harus berupa tanggal',
+            'status.required' => 'Status harus diisi',
+            'status.in' => 'Status harus aktif atau tidak aktif',
+            'kode_supplier.unique' => 'Kode supplier sudah ada',
+            'nama_supplier.unique' => 'Nama supplier sudah ada',
+            'nama_supplier.min' => 'Nama supplier harus minimal 5 karakter',
+        ];
+        $validate = $request->validate([
             'kode_supplier' => 'required|unique:supplier',
-            'nama_supplier' => 'required',
+            'nama_supplier' => 'required|unique:supplier|min:5',
             'alamat_supplier' => 'required',
             'telepon_supplier' => 'required|numeric',
             'tanggal_bergabung' => 'required|date',
             'tanggal_berakhir' => 'required|date',
             'status' => 'required|in:aktif,tidak_aktif',
 
-        ]);
+        ], $messages);
 
-        supplier::create($validated);
-
+        supplier::create($validate);
         return redirect()->route('supplier')->with('success', 'supplier added successfully');
     }
     public function destroy(supplier $supplier)

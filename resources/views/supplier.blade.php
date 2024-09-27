@@ -3,6 +3,24 @@
 @section('title', 'Supplier')
 
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('success'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000,
+            background: '#e2f9e1', // background alert
+            toast: true, // tampilkan sebagai toast
+            position: 'top-end' // posisi di kanan atas
+        });
+    });
+</script>
+@endif
     <div class="py-2">
         <div class="w-full mx-auto">
             <form action="{{ route('supplier.store') }}" method="POST">
@@ -23,6 +41,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-barcode text-lg text-yellow-400"></i>
                                     </div>
+                                    @error('kode_supplier')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                                 </div>
                             </div>
                             <div>
@@ -34,6 +55,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-user text-lg text-blue-400"></i>
                                     </div>
+                                    @error('nama_supplier')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -47,6 +71,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-map-marker-alt text-lg text-red-400"></i>
                                     </div>
+                                    @error('alamat_supplier')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div>
@@ -58,6 +85,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-phone-alt text-lg text-green-400"></i>
                                     </div>
+                                    @error('telepon_supplier')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -71,6 +101,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-calendar-alt text-lg text-purple-400"></i>
                                     </div>
+                                    @error('tanggal_bergabung')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div>
@@ -82,6 +115,9 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fas fa-calendar-times text-lg text-orange-400"></i>
                                     </div>
+                                    @error('tanggal_berakhir')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -102,6 +138,9 @@
                                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                         <i class="fas fa-chevron-down text-lg text-gray-400"></i>
                                     </div>
+                                    @error('status')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="flex justify-end items-end">
@@ -213,7 +252,7 @@
                     </thead>
                     <tbody
                         class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 items-center text-center justify-center">
-                        @foreach ($suppliers as $supplier)
+                        @forelse ($suppliers as $supplier)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                     {{ $supplier->kode_supplier }}
@@ -267,7 +306,13 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
+                                    Tidak ada Supplier yang ditemukan.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
@@ -309,7 +354,7 @@
                                                 <input id="kode_supplier"
                                                     class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
                                                     type="text" name="kode_supplier"
-                                                    value="{{ $supplier->kode_supplier }}" required autofocus />
+                                                    value="{{ $supplier->kode_supplier }}" readonly autofocus />
                                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                                     <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                                 </div>
@@ -447,4 +492,5 @@
             document.getElementById('status-form').submit();
         });
     </script>
+
 @endsection

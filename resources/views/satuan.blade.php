@@ -4,6 +4,23 @@
 
 @section('content')
 
+    @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    background: '#e2f9e1', // background alert
+                    toast: true, // tampilkan sebagai toast
+                    position: 'top-end' // posisi di kanan atas
+                });
+            });
+        </script>
+    @endif
+
     <div class="py-2">
         <div class="w-full mx-auto">
             <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-4">
@@ -12,17 +29,7 @@
                         Tambahkan Data Satuan
                     </h2>
 
-                    @if (session('success'))
-                        <div class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md">
-                            {{ session('success') }}
-                        </div>
-                    @endif
 
-                    @if (session('error'))
-                        <div class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md">
-                            {{ session('error') }}
-                        </div>
-                    @endif
 
                 </div>
 
@@ -35,7 +42,8 @@
                                 <div class="relative">
                                     <input id="kode_satuan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="kode_satuan" value="{{ $nextKodeSatuan }}"  readonly autofocus />
+                                        type="text" name="kode_satuan" value="{{ $nextKodeSatuan }}" readonly
+                                        autofocus />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                     </div>
@@ -46,14 +54,14 @@
                                 <div class="relative">
                                     <input id="nama_satuan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="nama_satuan" value="{{ old ('nama_satuan') }}" required />
+                                        type="text" name="nama_satuan" value="{{ old('nama_satuan') }}" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
                                     </div>
                                 </div>
                                 @error('nama_satuan')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-6">
@@ -62,39 +70,39 @@
                                 <div class="relative">
                                     <input id="singkatan"
                                         class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="singkatan" value="{{ old ('singkatan') }}" required />
+                                        type="text" name="singkatan" value="{{ old('singkatan') }}" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
                                     </div>
                                 </div>
                                 @error('singkatan')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="deskripsi" class="block text-sm font-medium">Deskripsi</label>
                                 <div class="relative">
                                     <input id="deskripsi"
                                         class="block mt-1 w-full pl-10 pr-10 bg-gray-700 border-gray-600 rounded-md"
-                                        type="text" name="deskripsi" value="{{ old ('deskripsi') }}" required />
+                                        type="text" name="deskripsi" value="{{ old('deskripsi') }}" required />
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <i class="fa-solid fa-scale-balanced w-5 h-5 text-blue-400"></i>
                                     </div>
                                 </div>
                                 @error('deskripsi')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="flex justify-end my-4">
-                    <button type="submit"
-                        class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-bold py-2 px-4 rounded-lg inline-flex items-center">
-                        <i class="fa-solid fa-plus w-4 h-4 mr-1"></i>
-                        Add Satuan
-                    </button>
-                </div>
+            </div>
+            <div class="flex justify-end my-4">
+                <button type="submit"
+                    class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-bold py-2 px-4 rounded-lg inline-flex items-center">
+                    <i class="fa-solid fa-plus w-4 h-4 mr-1"></i>
+                    Add Satuan
+                </button>
+            </div>
             </form>
 
 
@@ -132,24 +140,11 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="relative">
-                        <select
-                            class="appearance-none bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white dark:focus:bg-gray-700 focus:border-blue-500 focus:ring-0">
-                            <option>Semua</option>
-                            <option>Aktif</option>
-                            <option>Tidak Aktif</option>
-                        </select>
-                        <div
-                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-200">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </div>
-                    </div>
+
                 </div>
-                <form method="GET" action="{{ route('satuan.index') }}">
+                <form id="searchForm" method="GET" action="{{ route('satuan.index') }}">
                     <div class="relative">
-                        <input type="text" name="search" placeholder="Cari"
+                        <input type="text" id="searchInput" name="search" placeholder="Cari"
                             class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-4 block w-full appearance-none leading-normal focus:outline-none focus:ring-0 focus:border-blue-500 pl-10"
                             value="{{ request()->get('search') }}">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -185,7 +180,7 @@
                     </thead>
                     <tbody
                         class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 items-center text-center justify-center">
-                        @foreach ($satuans as $satuan)
+                        @forelse ($satuans as $satuan)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                     {{ $satuan->kode_satuan }}
@@ -230,7 +225,13 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
+                                    Tidak ada satuan yang ditemukan.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
@@ -271,7 +272,7 @@
                                                 <input id="kode_satuan"
                                                     class="block mt-1 w-full pl-10 bg-gray-700 border-gray-600 rounded-md"
                                                     type="text" name="kode_satuan" value="{{ $satuan->kode_satuan }}"
-                                                    required autofocus />
+                                                    readonly autofocus />
                                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                                     <i class="fa-solid fa-clipboard-list h-5 w-5 text-yellow-400"></i>
                                                 </div>
@@ -287,6 +288,9 @@
                                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                                     <i class="fa-solid fa-file-signature h-5 w-5 text-red-400"></i>
                                                 </div>
+                                                @error('nama_satuan')
+                                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -301,6 +305,9 @@
                                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                                     <i class="fa-solid fa-hashtag h-5 w-5 text-green-400"></i>
                                                 </div>
+                                                @error('singkatan')
+                                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div>
@@ -313,6 +320,9 @@
                                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                                     <i class="fa-solid fa-scale-balanced w-5 h-5 text-blue-400"></i>
                                                 </div>
+                                                @error('deskripsi')
+                                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -336,7 +346,7 @@
         </div>
     @endforeach
 
-<script>
+    <script>
         function openModal(id) {
             // Menghapus class 'hidden' untuk modal dengan ID yang sesuai
             document.getElementById(`modal_satuan_${id}`).classList.remove('hidden');
@@ -346,6 +356,7 @@
             // Menambahkan class 'hidden' untuk modal dengan ID yang sesuai
             document.getElementById(`modal_satuan_${id}`).classList.add('hidden');
         }
+
         function changePerPage() {
             var perPage = document.getElementById('perPage').value;
             var currentUrl = new URL(window.location.href);
@@ -353,14 +364,46 @@
             window.location.href = currentUrl.toString();
         }
         setTimeout(function() {
-        let alert = document.querySelector('.bg-green-500');
-        if (alert) {
-            alert.style.transition = 'opacity 0.5s ease';
-            alert.style.opacity = '0';
-            setTimeout(() => alert.remove(), 500); // Hapus setelah transisi selesai
-        }
+            let alert = document.querySelector('.bg-green-500');
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500); // Hapus setelah transisi selesai
+            }
         }, 3000);
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let timeout = null;
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                const searchTerm = this.value;
+
+                if (searchTerm.length > 0) {
+                    timeout = setTimeout(function() {
+                        const form = document.getElementById('searchForm');
+                        form.submit(); // Submit form setelah 500ms
+                    }, 500);
+                } else {
+                    // Jika input kosong, submit form untuk menampilkan semua data
+                    timeout = setTimeout(function() {
+                        const form = document.getElementById('searchForm');
+                        form.submit(); // Kembali ke semua data
+                    }, 500);
+                }
+            });
+
+            // Mengatur fokus ke input hanya jika ada pencarian di URL
+            if (window.location.search.includes('search=')) {
+                searchInput.focus();
+                searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
 @endsection
