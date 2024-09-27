@@ -42,15 +42,27 @@ class AdministrasiController extends Controller
 }
 public function store(Request $request)
     {
-        $validate = $request->validate([
-            'kode_proyek' => 'required',
-            'nama_proyek' => 'required',
-            'status' => 'required',
-            'proyek_id' => 'required|exists:proyek,id', // Ganti sesuai nama tabel
-        ]);
-        // dd($validate);
+        $messages = [
+            'kode_proyek.required' => 'Kode proyek harus diisi.',
+            'nama_proyek.required' => 'Nama proyek harus diisi.',
+           'status.required' => 'Status proyek harus diisi.',
+            'proyek_id.required' => 'Proyek harus dipilih.',
+            'kode_proyek.unique' => 'Kode proyek sudah terdaftar.',
+            'nama_proyek.unique' => 'Nama proyek sudah terdaftar.',
+           'status.unique' => 'Status proyek sudah terdaftar.',
+            'proyek_id.exists' => 'Proyek yang dipilih tidak ditemukan.', // Ganti sesuai nama tabel
+            
+        ];
 
-        Administrasi::create($request->all());
+        $validate = $request->validate([
+            'kode_proyek' => 'required|unique:administrasi',
+            'nama_proyek' => 'required|unique:administrasi',
+            'status' => 'required|unique:administrasi',
+            'proyek_id' => 'required|exists:proyek,id', // Ganti sesuai nama tabel
+        ], $messages);
+
+
+        Administrasi::create($validate);
         return redirect()->route('Administrasi.administrasi')->with('success', 'Data Administrasi berhasil ditambahkan.');
     }
     public function destroy(Administrasi $administrasi)
