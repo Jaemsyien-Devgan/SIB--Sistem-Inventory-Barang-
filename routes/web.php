@@ -80,6 +80,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/sub_anggaran/store', [SubAnggaranController::class, 'store'])->name('sub_anggaran.store');
     Route::get('/sub_anggaran/{id}', [SubAnggaranController::class, 'index'])->name('Administrasi.sub_anggaran');
     Route::delete('/sub_anggaran/{subAnggaran}', [SubAnggaranController::class, 'destroy'])->name('Administrasi.sub_anggaran.destroy');
+    Route::get('/sub_anggaran/{id}/edit', [SubAnggaranController::class, 'edit'])->name('Administrasi.sub_anggaran.edit');
+    Route::put('/sub_anggaran/{id}', [SubAnggaranController::class, 'update'])->name('Administrasi.sub_anggaran.update');
+
 
 
     Route::get('/anggaran', [AnggaranController::class, 'index'])->name('anggaran.index');

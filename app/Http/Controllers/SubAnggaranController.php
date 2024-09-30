@@ -32,6 +32,9 @@ class SubAnggaranController extends Controller
             });
         });
     }
+
+
+
     $lastKodeAnggaran = SubAnggaran::orderBy('kode_anggaran', 'desc')->first();
         if ($lastKodeAnggaran) {
             $nextKodeAnggaran = str_pad($lastKodeAnggaran->kode_anggaran + 1, 4, '0', STR_PAD_LEFT);
@@ -77,11 +80,50 @@ class SubAnggaranController extends Controller
 
     return redirect()->back()->with('success', 'Sub Anggaran berhasil ditambahkan!');
 }
-public function destroy(SubAnggaran $subAnggaran)
+public function destroy(SubAnggaran $subAnggarans)
 {
-    $subAnggaran->delete();
+    $subAnggarans->delete();
 
-    return redirect()->route('Administrasi.show', $subAnggaran->administrasi_id)
+    return redirect()->route('Administrasi.show', $subAnggarans->administrasi_id)
         ->with('success', 'Sub Anggaran berhasil dihapus');
+}
+public function edit($id)
+{
+    // Mengambil satu SubAnggaran berdasarkan ID
+    $subAnggarans = SubAnggaran::findOrFail($id);
+
+    $anggarans = Anggaran::all();
+    $satuan = Satuan::all();
+
+    return view('Administrasi.sub_anggaran.edit', compact('subAnggarans', 'anggarans', 'satuan'));
+}
+
+public function update(Request $request, $id)
+{
+    // Mengambil data SubAnggaran berdasarkan ID
+    $subAnggarans = SubAnggaran::findOrFail($id);
+
+    // Validasi data yang diterima
+    $request->validate([
+        'kode_anggaran' => 'required|string|max:255',
+        'nama_anggaran' => 'required|string|max:255',
+        'anggaran_id' => 'required|integer',
+        'satuan_id' => 'required|integer',
+        'kuantitas' => 'required|numeric',
+        'harga_satuan' => 'required|numeric',
+    ]);
+
+    // Update data SubAnggaran
+    $subAnggarans->update($request->only([
+        'kode_anggaran',
+        'nama_anggaran',
+        'anggaran_id',
+        'satuan_id',
+        'kuantitas',
+        'harga_satuan',
+    ]));
+
+    return redirect()->route('Administrasi.show', $subAnggarans->administrasi_id)
+        ->with('success', 'Sub Anggaran berhasil diupdate!');
 }
 }

@@ -1,19 +1,19 @@
 @if (session('success'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000,
-            background: '#e2f9e1', // background alert
-            toast: true, // tampilkan sebagai toast
-            position: 'top-end' // posisi di kanan atas
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000,
+                background: '#e2f9e1', // background alert
+                toast: true, // tampilkan sebagai toast
+                position: 'top-end' // posisi di kanan atas
+            });
         });
-    });
-</script>
+    </script>
 @endif
 
 <div class="w-full mx-auto my-6">
@@ -135,58 +135,69 @@
                 </thead>
                 <tbody
                     class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 items-center text-center justify-center">
-    @forelse ($subAnggarans as $anggaran)
-        <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                {{ $anggaran->id }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ $anggaran->kode_anggaran }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ $anggaran->nama_anggaran }}
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ $anggaran->anggaran->nama_anggaran }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                {{ $anggaran->satuan->nama_satuan }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ $anggaran->kuantitas }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ number_format($anggaran->harga_satuan, 2) }} <!-- Format angka -->
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ number_format($anggaran->kuantitas * $anggaran->harga_satuan, 2) }} <!-- Format angka -->
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <button class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2" onclick="openModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                    Edit
-                </button>
-                <form action="{{ route('Administrasi.sub_anggaran.destroy', $anggaran->id) }}" method="POST" class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-600" onclick="return confirm('Apakah Anda yakin ingin menghapus sub anggaran ini?')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        Delete
-                    </button>
-                </form>
+                    @forelse ($subAnggarans as $anggaran)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                {{ $anggaran->id }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ $anggaran->kode_anggaran }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ $anggaran->nama_anggaran }}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ $anggaran->anggaran->nama_anggaran }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                {{ $anggaran->satuan->nama_satuan }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ $anggaran->kuantitas }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ number_format($anggaran->harga_satuan, 2) }} <!-- Format angka -->
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ number_format($anggaran->kuantitas * $anggaran->harga_satuan, 2) }}
+                                <!-- Format angka -->
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <button
+                                    class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-600 mr-2"
+                                    onclick="openeditSubAnggaranModal('modal_edit_sub_anggaran')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    Edit
+                                </button>
 
-            </td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
-                Tidak ada sub anggaran yang ditemukan.
-            </td>
-        </tr>
-        @endforelse
+                                <form action="{{ route('Administrasi.sub_anggaran.destroy', $anggaran->id) }}"
+                                    method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-600"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus sub anggaran ini?')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
+                                Tidak ada sub anggaran yang ditemukan.
+                            </td>
+                        </tr>
+                    @endforelse
 
 
                 </tbody>
@@ -312,7 +323,8 @@
                     </div>
                 </div>
                 <div>
-                    <label for="anggaran_id" class="block text-sm font-medium text-gray-400 mb-1">Kelompok Anggaran</label>
+                    <label for="anggaran_id" class="block text-sm font-medium text-gray-400 mb-1">Kelompok
+                        Anggaran</label>
                     <div class="relative">
                         <select name="anggaran_id" required
                             class="block w-full pl-10 pr-3 py-2 rounded-md bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -347,14 +359,21 @@
 
 
 
+
+
+
+
 <script>
     function openAddSubAnggaranModal() {
         document.getElementById('addSubAnggaranModal').classList.remove('hidden');
     }
 
+    // Fungsi untuk menutup modal tambah Sub Anggaran
     function closeAddSubAnggaranModal() {
         document.getElementById('addSubAnggaranModal').classList.add('hidden');
     }
+
+
     document.addEventListener('DOMContentLoaded', function() {
         // Dapatkan elemen input kuantitas, harga_satuan, dan jumlah_harga
         var kuantitasInput = document.getElementById('kuantitas');

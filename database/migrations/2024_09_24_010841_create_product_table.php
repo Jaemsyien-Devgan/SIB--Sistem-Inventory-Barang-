@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('kode_produk');
             $table->string('nama_produk');
-            $table->decimal('harga', 10, 2);
             $table->foreignId('satuan_id')->constrained('satuan'); // Relasi ke satuan
             $table->timestamps();
         });

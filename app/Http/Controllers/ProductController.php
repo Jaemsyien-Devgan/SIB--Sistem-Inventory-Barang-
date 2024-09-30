@@ -64,15 +64,12 @@ class ProductController extends Controller
             'nama_produk.unique' => 'Nama produk sudah digunakan.',
             'nama_produk.min' => 'Nama produk minimal 3 karakter.',
             'nama_produk.max' => 'Nama produk maksimal 50 karakter.',
-            'harga.required' => 'Harga produk harus diisi.',
-            'harga.numeric' => 'Harga produk harus berupa angka.',
            'satuan_id.required' => 'Satuan produk harus dipilih.',
 
         ];
         $validate = $request->validate([
             'kode_produk' => 'required|unique:product',
             'nama_produk' => 'required|unique:product|min:3|max:50',
-            'harga' => 'required|numeric',
             'satuan_id' => 'required|exists:satuan,id', // Ganti sesuai nama tabel
         ], $messages);
         // dd($validate);
@@ -100,7 +97,6 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'kode_produk' => 'required',
             'nama_produk' => 'required',
-            'harga' => 'required|numeric',
             'satuan_id' => 'required',
         ]);
 

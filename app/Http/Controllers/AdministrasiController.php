@@ -100,10 +100,15 @@ class AdministrasiController extends Controller
     }
 
     public function edit($id)
-    {
-        $administrasi = Administrasi::findOrFail($id);
-        return view('Administrasi.administrasi.edit', compact('administrasi'));
-    }
+{
+    // Ambil SubAnggaran berdasarkan ID
+    $subAnggaran = SubAnggaran::findOrFail($id);
+    $anggarans = Anggaran::all();
+    $satuan = Satuan::all();
+
+    // Kembalikan view dengan variabel yang diperlukan
+    return view('Administrasi.sub_anggaran.edit', compact('subAnggaran', 'anggarans', 'satuan'));
+}
     public function show($id)
     {
         $administrasi = Administrasi::findOrFail($id);
