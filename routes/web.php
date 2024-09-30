@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministrasiController;
+use App\Http\Controllers\AnggaranController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LPBController;
 use App\Http\Controllers\ProductController;
@@ -9,7 +10,9 @@ use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SubAnggaranController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
+use App\Models\Administrasi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -72,9 +75,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/Administrasi/{administrasi}', [AdministrasiController::class, 'destroy'])->name('Administrasi.administrasi.destroy');
     Route::get('/Administrasi/{id}/edit', [AdministrasiController::class, 'edit'])->name('Administrasi.administrasi.edit');
     Route::get('/Administrasi/{id}', [AdministrasiController::class, 'show'])->name('Administrasi.show');
+    Route::put('/Administrasi/{id}', [AdministrasiController::class, 'update'])->name('Administrasi.update');
 
     Route::post('/sub_anggaran/store', [SubAnggaranController::class, 'store'])->name('sub_anggaran.store');
     Route::get('/sub_anggaran/{id}', [SubAnggaranController::class, 'index'])->name('Administrasi.sub_anggaran');
+    Route::delete('/sub_anggaran/{subAnggaran}', [SubAnggaranController::class, 'destroy'])->name('Administrasi.sub_anggaran.destroy');
+
+
+    Route::get('/anggaran', [AnggaranController::class, 'index'])->name('anggaran.index');
+    Route::get('/anggaran/create', [AnggaranController::class, 'create'])->name('anggaran.create');
+    Route::post('/anggaran', [AnggaranController::class, 'store'])->name('anggaran.store');
+    Route::delete('/anggaran/{anggaran}', [AnggaranController::class, 'destroy'])->name('anggaran.destroy');
+    Route::get('/anggaran/{id}/edit', [AnggaranController::class, 'edit'])->name('anggaran.edit');
+    Route::put('/anggaran/{id}', [AnggaranController::class, 'update'])->name('anggaran.update');
+
+
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::delete('/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+    Route::get('/transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
+    Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
 
 });
 

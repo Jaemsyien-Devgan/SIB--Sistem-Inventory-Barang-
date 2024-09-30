@@ -13,6 +13,7 @@ class SubAnggaran extends Model
         'administrasi_id',
         'kode_anggaran',
         'nama_anggaran',
+        'anggaran_id',
         'satuan_id',
         'kuantitas',
         'harga_satuan',
@@ -27,5 +28,9 @@ class SubAnggaran extends Model
     public function administrasi()
     {
         return $this->belongsTo(Administrasi::class);
+    }
+    public function anggaran()
+    {
+        return $this->belongsTo(Anggaran::class);
     }
 }

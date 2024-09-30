@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('administrasi_id')->constrained('administrasi')->onDelete('cascade'); // Foreign key untuk proyek
             $table->string('kode_anggaran');
             $table->string('nama_anggaran');
+            $table->foreignId('anggaran_id')->constrained('anggaran')->onDelete('cascade');
             $table->foreignId('satuan_id')->constrained('satuan'); // Foreign key untuk satuan
             $table->integer('kuantitas');
             $table->decimal('harga_satuan', 15, 2);
