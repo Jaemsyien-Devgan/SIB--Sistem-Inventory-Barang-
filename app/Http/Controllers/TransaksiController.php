@@ -27,8 +27,8 @@ class TransaksiController extends Controller
         // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('kode_anggaran', 'like', "%{$search}%")
-                    ->orWhere('nama_anggaran', 'like', "%{$search}%");
+                $q->where('kode_transaksi', 'like', "%{$search}%")
+                    ->orWhere('nama_transaksi', 'like', "%{$search}%");
             });
         }
 

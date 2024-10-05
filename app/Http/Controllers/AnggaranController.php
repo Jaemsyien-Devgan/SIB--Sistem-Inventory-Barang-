@@ -98,8 +98,8 @@ class AnggaranController extends Controller
             'nama_anggaran.min' => 'Nama anggaran minimal 3 karakter.',
         ];
         $validatedData = $request->validate([
-            'kode_anggaran' => 'required|unique:anggaran',
-            'nama_anggaran' => 'required|unique:anggaran|min:3',
+            'kode_anggaran' => 'required',
+            'nama_anggaran' => 'required|min:3',
         ], $messages);
 
         $anggaran->update($validatedData);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Administrasi;
 use App\Models\Anggaran;
+use App\Models\product;
 use App\Models\Proyek;
 use App\Models\Satuan;
 use App\Models\SubAnggaran;
@@ -24,20 +25,12 @@ class AdministrasiController extends Controller
         $query = Administrasi::query();
         $proyek = Proyek::all();
 
-
-
-
         // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('kode_proyek', 'like', "%{$search}%")
                     ->orWhere('nama_proyek', 'like', "%{$search}%")
                     ->orWhere('status', 'like', "%{$search}%");
-
-                // Mencari berdasarkan relasi anggaran
-                $q->orWhereHas('anggaran', function ($query) use ($search) {
-                    $query->where('nama_anggaran', 'like', "%{$search}%");
-                });
             });
         }
 
@@ -58,14 +51,13 @@ class AdministrasiController extends Controller
                 });
             }
         }
-
-
         // Cek apakah perPage adalah -1, jika iya, ambil semua data
         if ($perPage == -1) {
             $administrasis = $query->get(); // Ambil semua data
         } else {
             $administrasis = $query->paginate($perPage); // Pagination
         }
+
 
         return view('Administrasi.administrasi', compact('administrasis', 'proyek'));
     }
@@ -100,28 +92,55 @@ class AdministrasiController extends Controller
     }
 
     public function edit($id)
-{
-    // Ambil SubAnggaran berdasarkan ID
-    $subAnggaran = SubAnggaran::findOrFail($id);
-    $anggarans = Anggaran::all();
-    $satuan = Satuan::all();
+    {
+        // Ambil SubAnggaran berdasarkan ID
+        $subAnggaran = SubAnggaran::findOrFail($id);
+        $anggarans = Anggaran::all();
+        $satuan = Satuan::all();
 
-    // Kembalikan view dengan variabel yang diperlukan
-    return view('Administrasi.sub_anggaran.edit', compact('subAnggaran', 'anggarans', 'satuan'));
-}
-    public function show($id)
+        // Kembalikan view dengan variabel yang diperlukan
+        return view('Administrasi.sub_anggaran.edit', compact('subAnggaran', 'anggarans', 'satuan'));
+    }
+    public function show(Request $request, $id)
     {
         $administrasi = Administrasi::findOrFail($id);
         $subAnggarans = $administrasi->subAnggarans;
         $anggarans = Anggaran::all();
         $satuan = Satuan::all();
-        $lastKodeAnggaran = SubAnggaran::orderBy('kode_anggaran', 'desc')->first();
-        if ($lastKodeAnggaran) {
-            $nextKodeAnggaran = str_pad($lastKodeAnggaran->kode_anggaran + 1, 4, '0', STR_PAD_LEFT);
-        } else {
-            $nextKodeAnggaran = '0001';
+        $product = product::all();
+        $subAnggarans = SubAnggaran::where('administrasi_id', $id)->get();
+        // Hitung subtotal
+
+        $subtotal = $subAnggarans->sum('harga_satuan');
+        $grandTotal = $subAnggarans->sum('jumlah_harga');
+        $search = $request->input('search');
+
+        $query = SubAnggaran::query();
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_anggaran', 'like', "%{$search}%")
+                    ->orWhere('satuan_id', 'like', "%{$search}%")
+                    ->orWhere('anggaran_id', 'like', "%{$search}%");
+            });
         }
-        return view('Administrasi.show', compact('administrasi', 'subAnggarans', 'satuan', 'nextKodeAnggaran','anggarans'));
+
+        $lastKodeDetail = SubAnggaran::orderBy('no_detail', 'desc')->first();
+        if ($lastKodeDetail) {
+            $nextKodeDetail = str_pad($lastKodeDetail->no_detail + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $nextKodeDetail = '0001';
+        }
+
+
+        $perPage = $request->input('per_page', session('per_page', 5));
+        session(['per_page' => $perPage]);
+
+        if ($perPage == -1) {
+            $pages = $query->get(); // Ambil semua data
+        } else {
+            $pages = $query->paginate($perPage)->appends(request()->query());
+        }
+        return view('Administrasi.show', compact('administrasi', 'subAnggarans','product', 'satuan', 'anggarans', 'subtotal', 'grandTotal', 'pages','nextKodeDetail'));
     }
     public function update(Request $request, $id)
     {

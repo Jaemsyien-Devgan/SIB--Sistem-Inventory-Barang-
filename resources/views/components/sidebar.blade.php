@@ -225,6 +225,13 @@
                                     <span>Tabel Transaksi</span>
                                 </a>
                             </li>
+
+                            <li class="dropdown-item hover:bg-gray-600 rounded-lg">
+                                <a href="{{ route('item.index') }}" class="w-full flex items-center">
+                                    <i class="fa-solid fa-briefcase text-indigo-400 mr-2"></i>
+                                    <span>Tabel Item</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
 

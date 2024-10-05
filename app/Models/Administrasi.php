@@ -20,4 +20,13 @@ class Administrasi extends Model
     {
         return $this->hasMany(SubAnggaran::class);
     }
+
+    public function product(){
+        return $this->hasMany(product::class);
+    }
+
+    public function proyek()
+    {
+        return $this->belongsTo(Proyek::class);
+    }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_produk');
             $table->string('nama_produk');
-            $table->foreignId('satuan_id')->constrained('satuan'); // Relasi ke satuan
+            $table->foreignId('satuan_id')->constrained('satuan')->onDelete('cascade'); // Relasi ke satuan
             $table->timestamps();
         });
     }

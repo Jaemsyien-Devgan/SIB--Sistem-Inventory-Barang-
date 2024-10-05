@@ -3,9 +3,8 @@
 @section('content')
 
 
-
 <div class="container mx-auto ">
-    <h1 class="text-2xl font-bold ml-2 mb-4 uppercase">Detail Proyek: {{ $administrasi->nama_proyek }}</h1>
+    <h1 class="text-2xl font-bold ml-2 mb-4 uppercase">Detail Laporan Penerimaan Barang: {{ $lpb->nomor_op }}</h1>
 
     <div class="w-full mx-auto bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
         <div class="px-6 py-4 bg-gray-700">
@@ -13,7 +12,7 @@
                 <svg class="w-6 h-6 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
-                Informasi Proyek
+                Informasi Laporan Penerimaan Barang
             </h3>
         </div>
         <div class="divide-y divide-gray-700">
@@ -24,8 +23,8 @@
                     </svg>
                 </span>
                 <div>
-                    <p class="text-sm text-gray-400">Kode Proyek</p>
-                    <p class="font-semibold">{{ $administrasi->kode_proyek }}</p>
+                    <p class="text-sm text-gray-400">Nomor OP</p>
+                    <p class="font-semibold">{{ $lpb->nomor_op }}</p>
                 </div>
             </div>
             <div class="px-6 py-4 flex items-center">
@@ -35,8 +34,8 @@
                     </svg>
                 </span>
                 <div>
-                    <p class="text-sm text-gray-400">Nama Proyek</p>
-                    <p class="font-semibold">{{ $administrasi->nama_proyek }}</p>
+                    <p class="text-sm text-gray-400">Keperluan Proyek</p>
+                    <p class="font-semibold">{{ $lpb->administrasi->nama_proyek }}</p>
                 </div>
             </div>
             <div class="px-6 py-4 flex items-center">
@@ -46,20 +45,27 @@
                     </svg>
                 </span>
                 <div>
-                    <p class="text-sm text-gray-400 mb-1">Status</p>
-                    <span class="px-2 py- text-xs font-semibold rounded-full
-                        {{ $administrasi->status == 'Aktif' ? 'bg-green-200 text-green-500' :
-                           ($administrasi->status == 'Selesai' ? 'bg-green-200 text-green-500' :
-                           'bg-green-200 text-green-500') }}">
-                        {{ $administrasi->status }}
+                    <p class="text-sm text-gray-400 mb-1">Nama Supplier</p>
+                    <span class="font-semibold rounded-full">
+                        {{ $lpb->supplier->nama_supplier }}
+                    </span>
+                </div>
+            </div>
+            <div class="px-6 py-4 flex items-center">
+                <span class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center mr-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                </span>
+                <div>
+                    <p class="text-sm text-gray-400 mb-1">Nama Transaksi</p>
+                    <span class=" font-semibold rounded-full">
+                        {{ $lpb->transaksi->nama_transaksi }}
                     </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-    @include('Administrasi.sub_anggaran')
 
 @endsection

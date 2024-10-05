@@ -10,4 +10,12 @@ class Satuan extends Model
     use HasFactory;
     protected $table ='satuan';
     protected $fillable = ['kode_satuan', 'nama_satuan', 'singkatan', 'deskripsi'];
+
+    public function product()
+    {
+        return $this->hasMany(product::class,'satuan_id');
+    }
 }
+
+
+

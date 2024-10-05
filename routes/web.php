@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\AnggaranController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LPBController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -68,6 +69,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
 
     Route::get('/LPB', [LPBController::class, 'index'])->name('lpb');
+    Route::post('/LPB/add', [LPBController::class, 'store'])->name('LPB.Lpb.store');
+    Route::get('/LPB/create', [LPBController::class, 'create'])->name('LPB.lpb.create');
+    Route::delete('/LPB/{lpb}', [LPBController::class, 'destroy'])->name('LPB.lpb.destroy');
+    Route::get('/LPB/{id}/edit', [LPBController::class, 'edit'])->name('LPB.lpb.edit');
+    Route::get('/LPB/{id}', [LPBController::class, 'show'])->name('LPB.lpb_show');
+    Route::put('/LPB/{id}', [LPBController::class, 'update'])->name('LPB.update');
+
 
     Route::get('/Administrasi', [AdministrasiController::class, 'index'])->name('Administrasi.administrasi');
     Route::post('/Administrasi/add', [AdministrasiController::class, 'store'])->name('Administrasi.administrasi.store');
@@ -77,7 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/Administrasi/{id}', [AdministrasiController::class, 'show'])->name('Administrasi.show');
     Route::put('/Administrasi/{id}', [AdministrasiController::class, 'update'])->name('Administrasi.update');
 
-    Route::post('/sub_anggaran/store', [SubAnggaranController::class, 'store'])->name('sub_anggaran.store');
+    Route::post('/sub_anggaran/store', [SubAnggaranController::class, 'store'])->name('Administrasi.sub_anggaran.store');
     Route::get('/sub_anggaran/{id}', [SubAnggaranController::class, 'index'])->name('Administrasi.sub_anggaran');
     Route::delete('/sub_anggaran/{subAnggaran}', [SubAnggaranController::class, 'destroy'])->name('Administrasi.sub_anggaran.destroy');
     Route::get('/sub_anggaran/{id}/edit', [SubAnggaranController::class, 'edit'])->name('Administrasi.sub_anggaran.edit');
@@ -99,6 +107,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
     Route::get('/transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
+
+    Route::get('/item', [ItemController::class, 'index'])->name('item.index');
+    Route::get('/item/create', [ItemController::class, 'create'])->name('item.create');
+    Route::post('/item', [ItemController::class, 'store'])->name('item.store');
+    Route::delete('/item/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
+    Route::get('/item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
+    Route::put('/item/{id}', [ItemController::class, 'update'])->name('item.update');
 
 });
 

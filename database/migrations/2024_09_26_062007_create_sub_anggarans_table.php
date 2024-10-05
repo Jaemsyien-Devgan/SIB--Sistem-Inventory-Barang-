@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('sub_anggarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('administrasi_id')->constrained('administrasi')->onDelete('cascade'); // Foreign key untuk proyek
-            $table->string('kode_anggaran');
-            $table->string('nama_anggaran');
-            $table->foreignId('anggaran_id')->constrained('anggaran')->onDelete('cascade');
-            $table->foreignId('satuan_id')->constrained('satuan'); // Foreign key untuk satuan
-            $table->integer('kuantitas');
+            $table->foreignId(column:'administrasi_id')->constrained('administrasi')->onDelete('cascade'); // Foreign key untuk proyek
+            $table->foreignId(column:'product_id')->constrained('product')->onDelete('cascade');
+            $table->foreignId(column:'anggaran_id')->constrained('anggaran')->onDelete('cascade');
+            $table->string(column:'no_detail',length:4)->unique();
+            $table->integer(column:'kuantitas');
             $table->decimal('harga_satuan', 15, 2);
             $table->decimal('jumlah_harga', 15, 2)->virtualAs('kuantitas * harga_satuan'); // Menyimpan total harga
             $table->timestamps();

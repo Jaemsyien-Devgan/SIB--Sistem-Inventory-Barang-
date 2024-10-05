@@ -11,26 +11,25 @@ class SubAnggaran extends Model
     protected $table = 'sub_anggarans';
     protected $fillable = [
         'administrasi_id',
-        'kode_anggaran',
-        'nama_anggaran',
+        'product_id',
+        'no_detail',
         'anggaran_id',
-        'satuan_id',
         'kuantitas',
         'harga_satuan',
         'jumlah_harga',
     ];
 
-    public function satuan()
-    {
-        return $this->belongsTo(Satuan::class);
-    }
-
     public function administrasi()
     {
-        return $this->belongsTo(Administrasi::class);
+        return $this->belongsTo(Administrasi::class, foreignKey: 'administrasi_id');
     }
     public function anggaran()
     {
-        return $this->belongsTo(Anggaran::class);
+        return $this->belongsTo(Anggaran::class, foreignKey: 'anggaran_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, foreignKey: 'product_id');
     }
 }
