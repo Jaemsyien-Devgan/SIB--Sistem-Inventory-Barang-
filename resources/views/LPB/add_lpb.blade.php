@@ -120,7 +120,7 @@
                             <input id="administrasi_id" type="hidden" name="administrasi_id" />
                             <input id="kode_proyek_peminta"
                                 class="block w-full pl-10 pr-10 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                type="text" name="administrasi_id" required readonly />
+                                type="text" name="kode_proyek_peminta" required readonly />
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -455,6 +455,7 @@
     </div>
     <!-- Table End -->
 </div>
+
 
 
 

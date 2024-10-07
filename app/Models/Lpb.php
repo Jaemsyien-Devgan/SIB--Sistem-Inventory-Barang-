@@ -38,4 +38,16 @@ class Lpb extends Model
     {
         return $this->belongsTo(Transaksi::class, foreignKey: 'transaksi_id');
     }
+    public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, foreignKey: 'satuan_id');
+    }
+    public function sublpb()
+    {
+        return $this->hasMany(SubLpb::class, foreignKey: 'lpb_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, foreignKey: 'product_id');
+    }
 }

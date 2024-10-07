@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubAnggaran extends Model
+class SubLpb extends Model
 {
     use HasFactory;
-    protected $table = 'sub_anggarans';
+    protected $table = 'sub_lpb';
     protected $fillable = [
-        'administrasi_id',
+        'lpb_id',
+        'sub_anggaran_id',
         'product_id',
-        'no_detail',
-        'anggaran_id',
         'kuantitas',
+        'spesifikasi',
+        'deskripsi',
         'harga_satuan',
         'jumlah_harga',
     ];
@@ -32,13 +33,17 @@ class SubAnggaran extends Model
     {
         return $this->belongsTo(Product::class, foreignKey: 'product_id');
     }
-    public function LPB(){
-        return $this->belongsTo(Lpb::class, 'lpb_id');
+    public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, foreignKey: 'satuan_id');
     }
-    public function subLpb(){
-        return $this->belongsTo(SubLpb::class, 'sub_anggaran_id');
+    public function lpb()
+    {
+        return $this->belongsTo(Lpb::class, foreignKey: 'lpb_id');
     }
-    public function satuan(){
-        return $this->belongsTo(Satuan::class, 'satuan_id');
+
+    public function subAnggarans(){
+        return $this->hasMany(SubAnggaran::class, 'sub_anggaran_id');
     }
+
 }

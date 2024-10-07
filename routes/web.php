@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SubAnggaranController;
+use App\Http\Controllers\SubLpbController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
@@ -75,6 +76,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/LPB/{id}/edit', [LPBController::class, 'edit'])->name('LPB.lpb.edit');
     Route::get('/LPB/{id}', [LPBController::class, 'show'])->name('LPB.lpb_show');
     Route::put('/LPB/{id}', [LPBController::class, 'update'])->name('LPB.update');
+
+    Route::post('/sub_lpb/store', [SubLpbController::class, 'store'])->name('LPB.sub_lpb.store');
+    Route::get('/sub_lpb/{id}', [SubLpbController::class, 'index'])->name('LPB.sub_lpb');
+    Route::delete('/sub_lpb/{subLpb}', [SubLpbController::class, 'destroy'])->name('LPB.sub_lpb.destroy');
+    Route::get('/sub_lpb/{id}/edit', [SubLpbController::class, 'edit'])->name('LPB.sub_lpb.edit');
+    Route::put('/sub_lpb/{id}', [SubLpbController::class, 'update'])->name('LPB.sub_lpb.update');
 
 
     Route::get('/Administrasi', [AdministrasiController::class, 'index'])->name('Administrasi.administrasi');

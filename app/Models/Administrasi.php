@@ -29,4 +29,10 @@ class Administrasi extends Model
     {
         return $this->belongsTo(Proyek::class);
     }
+    public function lpb(){
+        return $this->hasMany(Lpb::class);
+    }
+    public function sublpb(){
+        return $this->hasMany(SubLpb::class);
+    }
 }

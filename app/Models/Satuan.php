@@ -15,6 +15,18 @@ class Satuan extends Model
     {
         return $this->hasMany(product::class,'satuan_id');
     }
+    public function administrasi()
+    {
+        return $this->hasMany(Administrasi::class,'satuan_id');
+    }
+    public function subLpb()
+    {
+        return $this->hasMany(SubLpb::class,'sub_lpb_id');
+    }
+    public function LPB()
+    {
+        return $this->hasMany(Lpb::class,'satuan_id');
+    }
 }
 
 

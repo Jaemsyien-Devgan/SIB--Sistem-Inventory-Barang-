@@ -68,4 +68,6 @@
     </div>
 </div>
 
+@include('LPB.sub_lpb')
+
 @endsection

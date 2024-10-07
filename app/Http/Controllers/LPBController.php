@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Administrasi;
 use App\Models\Lpb;
+use App\Models\product;
+use App\Models\Satuan;
+use App\Models\SubAnggaran;
+use App\Models\SubLpb;
 use App\Models\supplier;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -63,60 +67,68 @@ class LPBController extends Controller
     }
 
     public function store(Request $request)
-{
-    try {
-        $validated = $request->validate([
-            'tanggal_lpb' => 'required|date',
-            'administrasi_id' => 'required|exists:administrasi,id',
-            'transaksi_id' => 'required|exists:transaksi,id',
-            'supplier_id' => 'required|exists:supplier,id',
-            'tanda_tangan' => 'required|array',
-            'tanda_tangan.*' => 'required|string|max:255',
-            'jabatan' => 'required|array',
-            'jabatan.*' => 'required|string|max:255',
-        ]);
+    {
+        try {
+            $validated = $request->validate([
+                'tanggal_lpb' => 'required|date',
+                'administrasi_id' => 'required|exists:administrasi,id',
+                'transaksi_id' => 'required|exists:transaksi,id',
+                'supplier_id' => 'required|exists:supplier,id',
+                'tanda_tangan' => 'required|array',
+                'tanda_tangan.*' => 'required|string|max:255',
+                'jabatan' => 'required|array',
+                'jabatan.*' => 'required|string|max:255',
+            ]);
 
-        $currentMonth = date('m');
-        $currentYear = date('Y');
+            $currentMonth = date('m');
+            $currentYear = date('Y');
 
-        $generateCode = function ($type) use ($currentMonth, $currentYear) {
-            $lastCode = Lpb::whereRaw('SUBSTRING_INDEX(nomor_op, "/", -1) = ?', ["{$currentMonth}.{$currentYear}"])
-                ->orderBy('id', 'desc')
-                ->first();
+            $generateCode = function ($type) use ($currentMonth, $currentYear) {
+                $lastCode = Lpb::whereRaw('SUBSTRING_INDEX(nomor_op, "/", -1) = ?', ["{$currentMonth}.{$currentYear}"])
+                    ->orderBy('id', 'desc')
+                    ->first();
 
-            $newCounter = $lastCode ? (int)substr($lastCode->nomor_op, 0, 5) + 1 : 1;
-            $proyekadministrasi = Administrasi::with('proyek')->where('id', request('administrasi_id'))->first();
-            $projectCode = $proyekadministrasi && $proyekadministrasi->proyek ? $proyekadministrasi->proyek->kode_proyek : 'XXXXX';
+                $newCounter = $lastCode ? (int)substr($lastCode->nomor_op, 0, 5) + 1 : 1;
+                $proyekadministrasi = Administrasi::with('proyek')->where('id', request('administrasi_id'))->first();
+                $projectCode = $proyekadministrasi && $proyekadministrasi->proyek ? $proyekadministrasi->proyek->kode_proyek : 'XXXXX';
 
-            $formattedCounter = str_pad($newCounter, 5, '0', STR_PAD_LEFT);
-            return "{$formattedCounter}/{$type}/{$projectCode}/{$currentMonth}.{$currentYear}";
-        };
+                $formattedCounter = str_pad($newCounter, 5, '0', STR_PAD_LEFT);
+                return "{$formattedCounter}/{$type}/{$projectCode}/{$currentMonth}.{$currentYear}";
+            };
 
-        $validated['nomor_op'] = $generateCode('OP');
-        $validated['nomor_lpb'] = $generateCode('LPB');
-        $validated['nomor_pp'] = $generateCode('PP');
+            $validated['nomor_op'] = $generateCode('OP');
+            $validated['nomor_lpb'] = $generateCode('LPB');
+            $validated['nomor_pp'] = $generateCode('PP');
 
-        if (count($request->tanda_tangan) !== count($request->jabatan)) {
-            return redirect()->back()->with('error', 'Jumlah tanda tangan dan jabatan tidak sama.');
+            if (count($request->tanda_tangan) !== count($request->jabatan)) {
+                return redirect()->back()->with('error', 'Jumlah tanda tangan dan jabatan tidak sama.');
+            }
+
+            Lpb::create($validated);
+
+            return redirect()->route('lpb')->with('success', 'LPB berhasil ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        Lpb::create($validated);
-
-        return redirect()->route('lpb')->with('success', 'LPB berhasil ditambahkan');
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
-}
 
 
     public function show($id)
     {
+
         $lpb = Lpb::findOrFail($id);
+        $sub_lpb = $lpb->sublpb()->get();
+        // dd($sub_lpb->toArray());
+        $administrasi = Administrasi::all();
         $supplier = supplier::all();
         $transaksi = Transaksi::all();
+        $satuan = Satuan::all();
+        $subAnggarans = SubAnggaran::all();
+        $product = product::all(); // Mendapatkan semua produk
 
+        $grandTotal = $sub_lpb->sum('jumlah_harga');
 
-        return view('LPB.lpb_show', compact('lpb', 'supplier', 'transaksi'));
+        return view('LPB.lpb_show', compact('grandTotal', 'sub_lpb', 'lpb', 'supplier', 'transaksi', 'administrasi', 'product', 'satuan', 'subAnggarans'));
     }
 
     public function destroy($id)

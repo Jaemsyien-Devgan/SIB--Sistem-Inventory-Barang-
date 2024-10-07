@@ -13,6 +13,22 @@ class product extends Model
 
     public function satuan()
     {
-        return $this->belongsTo(Satuan::class,'satuan_id');
+        return $this->belongsTo(Satuan::class, 'satuan_id');
+    }
+    public function administrasi()
+    {
+        return $this->belongsTo(Administrasi::class, 'administrasi_id');
+    }
+    public function subAnggarans()
+    {
+        return $this->hasMany(SubAnggaran::class, 'product_id');
+    }
+    public function subLpb()
+    {
+        return $this->hasMany(SubLpb::class, 'product_id');
+    }
+    public function lPB()
+    {
+        return $this->hasMany(Lpb::class, 'product_id');
     }
 }
