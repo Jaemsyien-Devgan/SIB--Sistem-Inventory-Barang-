@@ -21,7 +21,7 @@ class product extends Model
     }
     public function subAnggarans()
     {
-        return $this->hasMany(SubAnggaran::class, 'product_id');
+        return $this->belongsTo(SubAnggaran::class, 'product_id');
     }
     public function subLpb()
     {

@@ -52,33 +52,36 @@
                                 </tr>
                             </thead>
                             <tbody id="modalProjectTableBody" class="bg-gray-900 divide-y divide-gray-700">
-                                @foreach ($subAnggarans as $item)
+                                @if($administrasi && $administrasi->subAnggarans)
+                                    @foreach ($administrasi->subAnggarans as $item)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                                                {{ $loop->iteration}}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                                                {{ $item->product->kode_produk }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                                {{ $item->product->nama_produk }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                                {{ $item->kuantitas }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                                {{ $item->product->satuan->nama_satuan }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                                {{ $item->harga_satuan }}</td>
+                                            <td class="px-4 py-2 whitespace-nowrap text-sm font-medium">
+                                                <button class="bg-green-100 text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out transform hover:scale-110 p-1 rounded-lg"
+                                                        onclick="selectlpb('{{ $administrasi->id }}','{{ $lpb->id }}','{{ $item->id }}','{{ $item->product->id }}', '{{ $item->product->kode_produk }}', '{{ $item->product->nama_produk }}', '{{ $item->product->satuan->nama_satuan }}', '{{ $item->harga_satuan }}')">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
-                                            {{ $item->product->id }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
-                                            {{ $item->product->kode_produk }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                            {{ $item->product->nama_produk }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                            {{ $item->kuantitas }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                            {{ $item->product->satuan->nama_satuan }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                            {{ $item->harga_satuan }}</td>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium">
-                                            <button
-                                                class="bg-green-100 text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out transform hover:scale-110 p-1 rounded-lg"
-                                                onclick="selectlpb('{{ $lpb->id }}','{{ $item->id }}','{{ $item->product->id }}', '{{ $item->product->kode_produk }}', '{{ $item->product->nama_produk }}', '{{ $item->product->satuan->nama_satuan }}', '{{ $item->harga_satuan }}')">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                </svg>
-                                            </button>
-                                        </td>
+                                        <td colspan="7" class="px-6 py-4 text-sm text-gray-300 text-center">Tidak ada data yang ditemukan.</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -112,8 +115,9 @@
         hargaSatuanInput.addEventListener('input', hitungJumlahHarga);
     });
 
-    function selectlpb(lbp_id, sub_anggaran_id, product_id, kode_produk, nama_produk, nama_satuan, harga_satuan) {
+    function selectlpb(administrasi_id, lbp_id, sub_anggaran_id, product_id, kode_produk, nama_produk, nama_satuan, harga_satuan) {
         // Mengisi nilai ke dalam form
+        document.getElementById('administrasi_id').value = administrasi_id;
         document.getElementById('lpb_id').value = lbp_id;
         document.getElementById('sub_anggaran_id').value = sub_anggaran_id;
         document.getElementById('product_id').value = product_id;

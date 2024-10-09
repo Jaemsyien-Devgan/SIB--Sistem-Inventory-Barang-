@@ -49,7 +49,7 @@
                                                     <td class="px-4 py-2 whitespace-nowrap text-sm font-medium">
                                                         <button
                                                             class="bg-green-100 text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out transform hover:scale-110 p-1 rounded-lg"
-                                                            onclick="selectSupplier('{{ $item->kode_supplier }}', '{{ $item->nama_supplier }}')">
+                                                            onclick="selectSupplier('{{$item->id}}','{{ $item->kode_supplier }}', '{{ $item->nama_supplier }}')">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                                 viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"

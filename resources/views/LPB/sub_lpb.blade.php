@@ -38,7 +38,7 @@
 <div class="w-full mx-auto my-6">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="w-full sm:w-auto">
-            <a href=""
+            <a href="{{ route('lpb') }}"
                 class="group w-full sm:w-auto flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm font-medium rounded-md hover:from-purple-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out">
                 <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-300 ease-in-out"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -71,6 +71,7 @@
         Pilih Daftar Sub LPB...
     </p>
 
+
     <!-- Table Start -->
     <div>
         <div class="mb-4 flex flex-col sm:flex-row justify-between items-center">
@@ -91,21 +92,28 @@
                     </div>
                 </div>
             </div>
-            <form method="GET" action="{{'LPB.sub_lpb'}}">
-                <div class="relative">
-                    <input type="text" name="search" placeholder="Cari"
-                        class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-4 block w-full appearance-none leading-normal focus:outline-none focus:ring-0 focus:border-blue-500 pl-10"
-                        value="{{ request()->get('search') }}">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
+
+            <div class="flex gap-4">
+                <a href="{{ route('sub_lpb.pdf', $lpb->id) }}" class="inline-flex items-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-700 transition duration-300 ease-in-out" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Unduh Laporan PDF
+                </a>
+                <form method="GET" action="{{'LPB.sub_lpb'}}">
+                    <div class="relative">
+                        <input type="text" name="search" placeholder="Cari"
+                            class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-4 block w-full appearance-none leading-normal focus:outline-none focus:ring-0 focus:border-blue-500 pl-10"
+                            value="{{ request()->get('search') }}">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
                     </div>
-                </div>
-            </form>
-
-
+                </form>
+            </div>
         </div>
 
         <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow overflow-y-auto">
@@ -165,13 +173,13 @@
                                     Edit
                                 </button>
 
-                                <form action=""
+                                <form action="{{ route('LPB.sub_lpb.destroy', $item->id) }}"
                                     method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-600"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus sub anggaran ini?')">
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus sub LPB ini?')">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -244,6 +252,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
+                        <input type="hidden" name="administrasi_id" id="administrasi_id"/>
                         <input type="hidden" name="lpb_id" id="lpb_id"/>
                         <input type="hidden" name="sub_anggaran_id" id="sub_anggaran_id" />
                         <input type="hidden" name="product_id" id="product_id" />

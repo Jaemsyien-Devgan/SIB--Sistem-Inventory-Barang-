@@ -74,9 +74,9 @@ class LPBController extends Controller
                 'administrasi_id' => 'required|exists:administrasi,id',
                 'transaksi_id' => 'required|exists:transaksi,id',
                 'supplier_id' => 'required|exists:supplier,id',
-                'tanda_tangan' => 'required|array',
+                'tanda_tangan' => 'required|array|max:2',
                 'tanda_tangan.*' => 'required|string|max:255',
-                'jabatan' => 'required|array',
+                'jabatan' => 'required|array|max:2',
                 'jabatan.*' => 'required|string|max:255',
             ]);
 
@@ -119,16 +119,17 @@ class LPBController extends Controller
         $lpb = Lpb::findOrFail($id);
         $sub_lpb = $lpb->sublpb()->get();
         // dd($sub_lpb->toArray());
-        $administrasi = Administrasi::all();
+        $administrasi = Administrasi::with(['subAnggarans', 'subAnggarans.product'])->find($id);
+        // dd($administrasi->toArray());
         $supplier = supplier::all();
         $transaksi = Transaksi::all();
         $satuan = Satuan::all();
-        $subAnggarans = SubAnggaran::all();
-        $product = product::all(); // Mendapatkan semua produk
+        // $subAnggarans = SubAnggaran::with('product')->findOrFail($id);
+        // $product = product::all(); // Mendapatkan semua produk
 
         $grandTotal = $sub_lpb->sum('jumlah_harga');
 
-        return view('LPB.lpb_show', compact('grandTotal', 'sub_lpb', 'lpb', 'supplier', 'transaksi', 'administrasi', 'product', 'satuan', 'subAnggarans'));
+        return view('LPB.lpb_show', compact('grandTotal', 'sub_lpb', 'lpb', 'supplier', 'transaksi', 'administrasi', 'satuan'));
     }
 
     public function destroy($id)

@@ -11,6 +11,7 @@ class SubLpb extends Model
     protected $table = 'sub_lpb';
     protected $fillable = [
         'lpb_id',
+        'administrasi_id',
         'sub_anggaran_id',
         'product_id',
         'kuantitas',
@@ -22,7 +23,7 @@ class SubLpb extends Model
 
     public function administrasi()
     {
-        return $this->belongsTo(Administrasi::class, foreignKey: 'administrasi_id');
+        return $this->hasMany(Administrasi::class, foreignKey: 'administrasi_id');
     }
     public function anggaran()
     {

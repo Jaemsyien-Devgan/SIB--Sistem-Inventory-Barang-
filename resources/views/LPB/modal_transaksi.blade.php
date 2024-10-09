@@ -43,13 +43,15 @@
                                             @foreach ($transaksi as $item)
                                                 <tr>
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                                                        {{ $item->id }}</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                                                         {{ $item->kode_transaksi }}</td>
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                         {{ $item->nama_transaksi }}</td>
                                                     <td class="px-4 py-2 whitespace-nowrap text-sm font-medium">
                                                         <button
                                                             class="bg-green-100 text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out transform hover:scale-110 p-1 rounded-lg"
-                                                            onclick="selectTransaksi('{{ $item->kode_transaksi }}', '{{ $item->nama_transaksi }}')">
+                                                            onclick="selectTransaksi('{{$item->id}}','{{ $item->kode_transaksi }}', '{{ $item->nama_transaksi }}')">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                                 viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"

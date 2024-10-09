@@ -18,11 +18,11 @@ class Administrasi extends Model
 
     public function subAnggarans()
     {
-        return $this->hasMany(SubAnggaran::class);
+        return $this->hasMany(SubAnggaran::class, 'administrasi_id');
     }
 
     public function product(){
-        return $this->hasMany(product::class);
+        return $this->hasMany(product::class,'product_id');
     }
 
     public function proyek()

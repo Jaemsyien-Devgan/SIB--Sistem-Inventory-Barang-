@@ -159,12 +159,13 @@
                 <div class="grid grid-cols-2 gap-6 mt-6">
                     <div class="grid grid-cols-3 gap-2">
                         <div>
-                            <label for="transaksi_id" class="block text-sm font-medium text-gray-100">Kode
+                            <input type="hidden" name="transaksi_id" id="transaksi_id"/>
+                            <label for="kode_transaksi" class="block text-sm font-medium text-gray-100">Kode
                                 Transaksi</label>
                             <div class="relative mt-1">
-                                <input id="transaksi_id"
+                                <input id="kode_transaksi"
                                     class="block w-full pl-10 pr-10 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                    type="text" name="transaksi_id" required />
+                                    type="text" name="kode_transaksi" required />
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -201,12 +202,13 @@
                     </div>
                     <div class="grid grid-cols-3 gap-2">
                         <div>
-                            <label for="supplier_id" class="block text-sm font-medium text-gray-100">Kode
+                            <input type="hidden" name="supplier_id" id="supplier_id"/>
+                            <label for="kode_supplier" class="block text-sm font-medium text-gray-100">Kode
                                 Supplier</label>
                             <div class="relative mt-1">
-                                <input id="supplier_id"
+                                <input id="kode_supplier"
                                     class="block w-full pl-10 pr-10 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                    type="text" name="supplier_id" required />
+                                    type="text" name="kode_supplier" required />
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -472,15 +474,17 @@
     }
 
     // Fungsi untuk memilih transaksi, mengisi input transaksi, dan menutup modal
-    function selectTransaksi(kode_transaksi, nama_transaksi) {
-        document.getElementById('transaksi_id').value = kode_transaksi;
+    function selectTransaksi(id,kode_transaksi, nama_transaksi) {
+        document.getElementById('transaksi_id').value = id;
+        document.getElementById('kode_transaksi').value = kode_transaksi;
         document.getElementById('nama_transaksi').value = nama_transaksi;
         closeModal('modal_transaksi');
     }
 
     // Fungsi untuk memilih supplier, mengisi input supplier, dan menutup modal
-    function selectSupplier(kode_supplier, nama_supplier) {
-        document.getElementById('supplier_id').value = kode_supplier;
+    function selectSupplier(id, kode_supplier, nama_supplier) {
+        document.getElementById('supplier_id').value = id;
+        document.getElementById('kode_supplier').value = kode_supplier;
         document.getElementById('nama_supplier').value = nama_supplier;
         closeModal('modal_supplier');
     }

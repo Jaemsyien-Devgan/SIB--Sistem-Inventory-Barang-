@@ -82,6 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/sub_lpb/{subLpb}', [SubLpbController::class, 'destroy'])->name('LPB.sub_lpb.destroy');
     Route::get('/sub_lpb/{id}/edit', [SubLpbController::class, 'edit'])->name('LPB.sub_lpb.edit');
     Route::put('/sub_lpb/{id}', [SubLpbController::class, 'update'])->name('LPB.sub_lpb.update');
+    Route::get('sub-lpb/{id}/pdf', [SubLpbController::class, 'generatePDF'])->name('sub_lpb.pdf');
+
 
 
     Route::get('/Administrasi', [AdministrasiController::class, 'index'])->name('Administrasi.administrasi');

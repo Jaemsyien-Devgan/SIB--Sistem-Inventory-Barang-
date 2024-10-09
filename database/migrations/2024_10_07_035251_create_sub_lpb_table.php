@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sub_lpb', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lpb_id')->constrained('lpb')->onDelete('cascade');
+            $table->foreignId('administrasi_id')->constrained('administrasi')->onDelete('cascade');
             $table->foreignId('sub_anggaran_id')->constrained('sub_anggarans')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('product')->onDelete('cascade');
             $table->integer('kuantitas');
