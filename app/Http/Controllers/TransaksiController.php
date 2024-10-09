@@ -19,9 +19,12 @@ class TransaksiController extends Controller
         $query = Transaksi::query();
         $lastKodeTransaksi = Transaksi::orderBy('kode_Transaksi', 'desc')->first();
         if ($lastKodeTransaksi) {
-            $nextKodeTransaksi = str_pad($lastKodeTransaksi->kode_transaksi + 1, 4, '0', STR_PAD_LEFT);
+            // Ekstrak angka dari kode proyek
+            $lastNumber = intval(substr($lastKodeTransaksi->kode_transaksi, 3));
+            $nextNumber = $lastNumber + 1;
+            $nextKodeTransaksi = 'TRX' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         } else {
-            $nextKodeTransaksi = '0001';
+            $nextKodeTransaksi = 'TRX0001';
         }
 
         // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom

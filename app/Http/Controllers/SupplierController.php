@@ -17,9 +17,12 @@ class SupplierController extends Controller
         $query = supplier::query();
         $lastKodeSupplier = supplier::orderBy('kode_supplier', 'desc')->first();
         if ($lastKodeSupplier) {
-            $nextKodeSupplier = str_pad($lastKodeSupplier->kode_supplier + 1, 4, '0', STR_PAD_LEFT);
+            // Ekstrak angka dari kode proyek
+            $lastNumber = intval(substr($lastKodeSupplier->kode_supplier, 3));
+            $nextNumber = $lastNumber + 1;
+            $nextKodeSupplier = 'SPR' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         } else {
-            $nextKodeSupplier = '0001';
+            $nextKodeSupplier = 'SPR0001';
         }
 
         $status = $request->input('status');

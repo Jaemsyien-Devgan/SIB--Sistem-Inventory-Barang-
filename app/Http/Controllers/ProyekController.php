@@ -16,10 +16,14 @@ class ProyekController extends Controller
         $search = $request->input('search');
         $query = Proyek::query();
         $lastKodeProyek = Proyek::orderBy('kode_proyek', 'desc')->first();
+        
         if ($lastKodeProyek) {
-            $nextKodeProyek = str_pad($lastKodeProyek->kode_proyek + 1, 4, '0', STR_PAD_LEFT);
+            // Ekstrak angka dari kode proyek
+            $lastNumber = intval(substr($lastKodeProyek->kode_proyek, 3));
+            $nextNumber = $lastNumber + 1;
+            $nextKodeProyek = 'PRJ' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         } else {
-            $nextKodeProyek = '0001';
+            $nextKodeProyek = 'PRJ0001';
         }
 
         $status = $request->input('status');

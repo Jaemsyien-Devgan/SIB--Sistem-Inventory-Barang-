@@ -24,7 +24,8 @@ class SubLpbController extends Controller
         $satuan = Satuan::all();
         $subAnggarans = SubAnggaran::all();
         $product = product::all(); //
-        $administrasi = Administrasi::findOrFail($id);
+
+        $administrasi = Administrasi::findOrFail($lpb->administrasi_id); // Ubah di sini
         return view('LPB.sub-lpb', compact('administrasi', 'product', 'sub_lpb', 'product', 'subAnggarans', 'supplier', 'transaksi', 'satuan'));
     }
     public function create()

@@ -17,11 +17,15 @@ class SatuanController extends Controller
         $search = $request->input('search');
         $query = Satuan::query();
         $lastKodeSatuan = Satuan::orderBy('kode_satuan', 'desc')->first();
+
         if ($lastKodeSatuan) {
-            $nextKodeSatuan = str_pad($lastKodeSatuan->kode_satuan + 1, 4, '0', STR_PAD_LEFT);
+            // Ekstrak angka dari kode satuan
+            $lastNumber = intval(substr($lastKodeSatuan->kode_satuan, 3));
+            $nextNumber = $lastNumber + 1;
+            $nextKodeSatuan = 'SAT' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         } else {
-            $nextKodeSatuan = '0001';
-        }
+            $nextKodeSatuan = 'SAT0001';
+        };
 
         // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
         if ($search) {

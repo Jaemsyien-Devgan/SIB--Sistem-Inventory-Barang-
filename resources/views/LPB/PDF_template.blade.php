@@ -1,4 +1,3 @@
-</html>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,28 +27,15 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
-            margin: 0;
         }
 
-        td {
+        td,
+        th {
             border: 1px solid black;
             text-align: center;
             padding: 3mm;
             vertical-align: top;
-        }
-
-        .rinso {
-            height: 500px;
-        }
-
-        .rinso th {
             font-weight: normal;
-            border-right: 1px solid black;
-            border-left: 1px solid black;
-            text-align: center;
-            padding: 3mm;
-            vertical-align: top;
         }
 
         .company-name,
@@ -69,48 +55,94 @@
         }
 
         .supplier-table {
-            margin-top: 0;
-            border: 1px solid black;
+            margin-top: -1px;
             width: 100%;
-            border-top: 0;
+            border: none;
         }
 
         .supplier-table td {
-            border: 1px black;
             text-align: left;
             padding: 2mm 3mm;
             font-size: 11pt;
+            border: none;
         }
 
-        .header {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            margin: 0;
-            font-size: 11pt;
+        .supplier-table .left-border {
+            border-left: 1px solid black;
         }
 
-        .header tr th {
-            text-align: center;
+        .supplier-table .right-border {
+            border-right: 1px solid black;
+        }
+
+        .header td {
+            height: 120pt;
+        }
+
+        .header th td {
             padding: 2mm 3mm;
-            font-size: 11pt;
+            height: 10mm;
+        }
+
+        .header td {
+            font-size: 10pt;
         }
 
         .keterangan-table {
             width: 100%;
-           /* border: 1px black solid; */
         }
 
         .keterangan-table td {
-             border: none;
+            border: none;
             text-align: left;
             vertical-align: top;
-            padding: 0;
+            padding: 3mm 0 0 0;
+            font-size: 11pt !important;
         }
 
         .description-item {
             margin-bottom: 5px;
             display: block;
+        }
+
+        .signature-table {
+            width: 100%;
+            font-size: 11pt;
+            border: 1px solid black;
+            border-top: none;
+            margin-top: -1px;
+        }
+
+        .signature-table td {
+            text-align: center;
+            padding: 10mm;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        .signature-line {
+            border: none;
+            width: 50mm;
+            margin-top: 15mm;
+        }
+
+        .no-border-right {
+            border-right: none;
+            font-weight: bold;
+        }
+
+        .no-border-left {
+            border-left: none;
+            font-weight: bold;
+        }
+
+        .yesbro {
+            border-top: none;
+            margin-top: -1px;
+        }
+
+        .yesbro td {
+            border-top: none;
         }
     </style>
 </head>
@@ -132,124 +164,92 @@
                 </td>
             </tr>
         </table>
+
         <table class="supplier-table">
             <tr>
-                <td class="label">Rekanan</td>
+                <td class="label left-border">Rekanan</td>
                 <td class="colon">:</td>
                 <td class="info">{{ $lpb->supplier->kode_supplier }},{{ $lpb->supplier->nama_supplier }}</td>
                 <td class="label">Nomor OP</td>
                 <td class="colon">:</td>
-                <td class="info">{{$lpb->nomor_op}}</td>
+                <td class="info right-border">{{ $lpb->nomor_op }}</td>
             </tr>
             <tr>
-                <td class="label">Unit / Proyek</td>
+                <td class="label left-border">Unit / Proyek</td>
                 <td class="colon">:</td>
-                <td class="info" colspan="4">
+                <td class="info" colspan="3">
                     {{ $lpb->administrasi->kode_proyek }},{{ $lpb->administrasi->nama_proyek }}</td>
+                <td class="right-border"></td>
             </tr>
         </table>
+
         <table class="header">
             <thead>
                 <tr>
-                    <td>No.</td>
-                    <td>Kode Barang</td>
-                    <td>Nama Barang</td>
-                    <td>Satuan</td>
-                    <td>Kuantitas</td>
-                    <td>Harga Satuan</td>
-                    <td>Jumlah Harga</td>
-                    @foreach ($sublpb as $item)
-                        <tr class="rinso">
-                            <th> {{ $loop->iteration }}</th>
-                            <th> {{ $item->product->kode_produk }}</th>
-                            <th> {{ $item->product->nama_produk }}</th>
-                            <th> {{ $item->product->satuan->nama_satuan }}</th>
-                            <th> Rp. {{ number_format($item->kuantitas) }}</th>
-                            <th> Rp. {{ number_format($item->harga_satuan) }}</th>
-                            <th> Rp. {{ number_format($item->jumlah_harga) }}</th>
-
-                        </tr>
-                    @endforeach
+                    <th>No.</th>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Satuan</th>
+                    <th>Kuantitas</th>
+                    <th>Harga Satuan</th>
+                    <th>Jumlah Harga</th>
                 </tr>
-
             </thead>
-            <tfoot class="foot">
+            <tbody>
+                @forelse ($sublpb as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->product->kode_produk }}</td>
+                        <td>{{ $item->product->nama_produk }}</td>
+                        <td>{{ $item->product->satuan->nama_satuan }}</td>
+                        <td>Rp. {{ number_format($item->kuantitas) }}</td>
+                        <td>Rp. {{ number_format($item->harga_satuan) }}</td>
+                        <td>Rp. {{ number_format($item->jumlah_harga) }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" style="text-align: center;">Data tidak ada</td>
+                    </tr>
+                @endforelse
+
+            </tbody>
+        </table>
+
+        <table class="yesbro">
+            <tfoot>
                 <tr>
                     <td colspan="5" style="padding: 0;">
                         <table class="keterangan-table">
                             <tr>
-                                <td style="padding-left:20px;">Keterangan :</td>
-                                <td style="width: 82%; margin:3px;">
+                                <td style="padding-left:20px; ">Keterangan :</td>
+                                <td style="width: 80%; margin:3px; padding-right:268px;">
                                     @foreach ($sublpb as $item)
-                                        <span class="description-item">- {{$item->deskripsi}}</span>
+                                        <span class="description-item">- {{ $item->deskripsi }}</span>
                                     @endforeach
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td class="deskripsi">Total :</td>
-                    <td class="deskripsi">Rp. {{ number_format($total_jumlah_harga) }}</td>
+                    <td style="padding-right:53px;">Total :</td>
+                    <td>Rp. {{ number_format($total_jumlah_harga) }}</td>
                 </tr>
             </tfoot>
         </table>
-        <table class="supplier-table">
-            <tr>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-            </tr>
-            <tr>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-            </tr>
-            <tr>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-            </tr>
-            <tr>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-            </tr>
-            <tr>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-                <td style="border-top: 0;" class="label"></td>
-                <td style="border-top: 0;" class="colon"></td>
-                <td style="border-top: 0;" class="info"></td>
-            </tr>
 
+        <!-- Tabel untuk tanda tangan -->
+        <table class="signature-table">
             <tr>
-                <td class="label"></td>
-                <td class="colon"></td>
-                <td class="info" colspan="4">
-                    Tanda Tangan:
-                    @if(is_array($lpb->tanda_tangan) && count($lpb->tanda_tangan) > 0)
-                        @foreach($lpb->tanda_tangan as $tanda_tangan)
-                            {{ $tanda_tangan }}@if (!$loop->last), @endif
-                        @endforeach
-                    @else
-                        Tidak ada tanda tangan.
-                    @endif
+                <td class="no-border-right">
+                    <div class="signature-line"></div>
+                    <div>{{ $lpb->tanda_tangan[0] ?? 'Tanda tangan tidak ditemukan' }}</div>
+                    <!-- Tanda tangan pertama -->
+                </td>
+                <td class="no-border-left">
+                    <div class="signature-line"></div>
+                    <div>{{ $lpb->tanda_tangan[1] ?? 'Tanda tangan tidak ditemukan' }}</div>
+                    <!-- Tanda tangan kedua -->
                 </td>
             </tr>
-
-
         </table>
     </div>
 </body>

@@ -116,10 +116,12 @@ class LPBController extends Controller
     public function show($id)
     {
 
-        $lpb = Lpb::findOrFail($id);
+        $lpb = Lpb::with('administrasi')->findOrFail($id);
         $sub_lpb = $lpb->sublpb()->get();
         // dd($sub_lpb->toArray());
-        $administrasi = Administrasi::with(['subAnggarans', 'subAnggarans.product'])->find($id);
+        $subAnggarans = Lpb::with(['administrasi'])->findOrFail($id);
+        $administrasi = Administrasi::with(['subAnggarans', 'subAnggarans.product'])
+        ->findOrFail($lpb->administrasi_id); // Ubah di sini
         // dd($administrasi->toArray());
         $supplier = supplier::all();
         $transaksi = Transaksi::all();
@@ -129,7 +131,7 @@ class LPBController extends Controller
 
         $grandTotal = $sub_lpb->sum('jumlah_harga');
 
-        return view('LPB.lpb_show', compact('grandTotal', 'sub_lpb', 'lpb', 'supplier', 'transaksi', 'administrasi', 'satuan'));
+        return view('LPB.lpb_show', compact('grandTotal','lpb', 'sub_lpb', 'supplier', 'transaksi', 'administrasi', 'satuan'));
     }
 
     public function destroy($id)

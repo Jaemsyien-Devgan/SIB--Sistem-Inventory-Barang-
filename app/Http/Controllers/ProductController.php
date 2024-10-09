@@ -21,10 +21,13 @@ class ProductController extends Controller
          $satuan = Satuan::all();
          $lastKodeProduct = product::orderBy('kode_produk', 'desc')->first();
          if ($lastKodeProduct) {
-             $nextKodeProduct = str_pad($lastKodeProduct->kode_produk + 1, 4, '0', STR_PAD_LEFT);
-         } else {
-             $nextKodeProduct = '0001';
-         }
+            // Ekstrak angka dari kode proyek
+            $lastNumber = intval(substr($lastKodeProduct->kode_produk, 3));
+            $nextNumber = $lastNumber + 1;
+            $nextKodeProduct = 'PRD' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        } else {
+            $nextKodeProduct = 'PRD0001';
+        }
 
          // Jika ada pencarian, tambahkan filter berdasarkan beberapa kolom
          if ($search) {
