@@ -45,4 +45,7 @@ class SubAnggaran extends Model
     {
         return $this->belongsTo(Satuan::class, 'satuan_id');
     }
+    public function subBpb(){
+        return $this->hasMany(SubBpb::class, 'product_id');
+    }
 }

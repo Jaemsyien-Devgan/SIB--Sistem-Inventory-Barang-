@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\AnggaranController;
+use App\Http\Controllers\BPBController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LPBController;
@@ -10,11 +11,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SubAnggaranController;
+use App\Http\Controllers\SubBpbController;
 use App\Http\Controllers\SubLpbController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use App\Models\Administrasi;
+use App\Models\SubBpb;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -69,6 +72,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
 
+    Route::get('/BPB', [BPBController::class, 'index'])->name('bpb');
+    Route::post('/BPB/add', [BPBController::class, 'store'])->name('BPB.bpb.store');
+    Route::get('/BPB/create', [BPBController::class, 'create'])->name('BPB.bpb.create');
+    Route::delete('/BPB/{BPB}', [BPBController::class, 'destroy'])->name('BPB.bpb.destroy');
+    Route::get('/BPB/{id}/edit', [BPBController::class, 'edit'])->name('BPB.bpb.edit');
+    Route::get('/BPB/{id}', [BPBController::class, 'show'])->name('BPB.bpb_show');
+    Route::put('/BPB/{id}', [BPBController::class, 'update'])->name('bpb.update');
+
+
     Route::get('/LPB', [LPBController::class, 'index'])->name('lpb');
     Route::post('/LPB/add', [LPBController::class, 'store'])->name('LPB.Lpb.store');
     Route::get('/LPB/create', [LPBController::class, 'create'])->name('LPB.lpb.create');
@@ -76,6 +88,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/LPB/{id}/edit', [LPBController::class, 'edit'])->name('LPB.lpb.edit');
     Route::get('/LPB/{id}', [LPBController::class, 'show'])->name('LPB.lpb_show');
     Route::put('/LPB/{id}', [LPBController::class, 'update'])->name('LPB.update');
+
+
+    Route::post('/sub_bpb/store/{id}', [SubBpbController::class, 'store'])->name('BPB.sub_bpb.store');
+    Route::get('/sub_bpb/{id}', [SubBpbController::class, 'index'])->name('BPB.sub_bpb');
+    Route::delete('/sub_bpb/{subBpb}', [SubBpbController::class, 'destroy'])->name('BPB.sub_bpb.destroy');
+    Route::get('/sub_bpb/{id}/edit', [SubBpbController::class, 'edit'])->name('BPB.sub_bpb.edit');
+    Route::put('/sub_bpb/{id}', [SubBpbController::class, 'update'])->name('BPB.sub_bpb.update');
+    Route::get('sub-bpb/{id}/pdf', [SubBpbController::class, 'generatePDF'])->name('sub_bpb.pdf');
+
 
     Route::post('/sub_lpb/store', [SubLpbController::class, 'store'])->name('LPB.sub_lpb.store');
     Route::get('/sub_lpb/{id}', [SubLpbController::class, 'index'])->name('LPB.sub_lpb');

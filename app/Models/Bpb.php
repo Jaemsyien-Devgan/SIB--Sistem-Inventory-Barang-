@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lpb extends Model
+class Bpb extends Model
 {
     use HasFactory;
-    protected $table = 'lpb';
+    protected $table = 'bpb';
     protected $fillable = [
-        'nomor_lpb',
-        'tanggal_lpb',
-        'nomor_op',
-        'nomor_pp',
-        'administrasi_id',
-        'transaksi_id',
-        'supplier_id',
+        'nomor_bpb',
+        'tanggal_bpb',
+        'lpb_id',
         'tanda_tangan',
         'jabatan',
     ];
@@ -50,14 +46,10 @@ class Lpb extends Model
     {
         return $this->belongsTo(Product::class, foreignKey: 'product_id');
     }
-    public function bpb(){
-        return $this->hasMany(Bpb::class, foreignKey: 'bpb_id');
+    public function lpb(){
+        return $this->belongsTo(Lpb::class, foreignKey:'lpb_id');
     }
-    public function proyek()
-    {
-        return $this->belongsTo(Proyek::class, 'proyek_id'); // pastikan foreign key sesuai dengan database
-    }
-    public function subBpb(){
-        return $this->hasMany(SubBpb::class, foreignKey: 'lpb_id');
+    public function subbpb(){
+        return $this->hasMany(SubBpb::class, 'bpb_id');
     }
 }

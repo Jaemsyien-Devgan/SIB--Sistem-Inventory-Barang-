@@ -35,4 +35,10 @@ class Administrasi extends Model
     public function sublpb(){
         return $this->hasMany(SubLpb::class);
     }
+    public function bpb(){
+        return $this->hasMany(Bpb::class);
+    }
+    public function subbpb(){
+        return $this->hasMany(bpb::class);
+    }
 }

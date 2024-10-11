@@ -31,4 +31,10 @@ class product extends Model
     {
         return $this->hasMany(Lpb::class, 'product_id');
     }
+    public function bpb(){
+        return $this->hasMany(Bpb::class, 'product_id');
+    }
+    public function subbpb(){
+        return $this->hasMany(SubBpb::class, 'product_id');
+    }
 }

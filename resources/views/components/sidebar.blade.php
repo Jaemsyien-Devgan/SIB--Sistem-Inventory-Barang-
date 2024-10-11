@@ -255,7 +255,7 @@
                             </li>
 
                             <li class="dropdown-item hover:bg-gray-600 rounded-lg">
-                                <a href="{{ route('product') }}" class="w-full flex items-center">
+                                <a href="{{ route('bpb') }}" class="w-full flex items-center">
                                     <i class="fas fa-clipboard-list text-purple-400 mr-2"></i>
                                     <span>Bon Permintaan</span>
                                 </a>

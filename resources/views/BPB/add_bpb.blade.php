@@ -34,24 +34,22 @@
     </script>
 @endif
 
-
-
-<!--- menambah data LPB -->
+<!---- Tambah Data BPB --->
 <div class="py-2">
     <div class="w-full max-auto">
         <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 border-1 p-4">
             <h2 class="text-2xl font-bold text-gray-100 mb-6">
-                Tambahkan Data Laporan Penerimaan Barang
+                Tambahkan Data Bon Penerimaan Barang
             </h2>
-            <form action="{{ route('LPB.Lpb.store') }}" method="POST">
+            <form action="{{ route('BPB.bpb.store') }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="nomor_lpb" class="block text-sm font-medium text-gray-100">Nomor LBP</label>
+                        <label for="nomor_bpb" class="block text-sm font-medium text-gray-100">Nomor BPB</label>
                         <div class="relative mt-1">
-                            <input id="nomor_lpb" value="{{ $newLPBCode ?? old('nomor_lpb') }}"
+                            <input id="nomor_bpb" value="{{ $newBPBCode ?? old('nomor_bpb') }}"
                                 class="block w-full pl-10 pr-3 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                type="text" name="nomor_lpb" required readonly />
+                                type="text" name="nomor_bpb" required readonly />
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -66,7 +64,7 @@
                         <div class="relative mt-1">
                             <input id="tanggal"
                                 class="block w-full pl-10 pr-3 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                type="date" name="tanggal_lpb" value="{{ date('Y-m-d') }}" required />
+                                type="date" name="tanggal_bpb" value="{{ date('Y-m-d') }}" required />
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="h-5 w-5 text-purple-400" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -78,46 +76,13 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div>
-                        <label for="nomor_op" class="block text-sm font-medium text-gray-100">Nomor OP</label>
-                        <div class="relative mt-1">
-                            <input id="nomor_op"
-                                class="block w-full pl-10 pr-3 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                type="text" name="nomor_op" value="{{ $newOPCode ?? old('nomor_op') }}" required
-                                readonly />
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                <svg class="h-5 w-5 text-pink-400" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div>
-                        <label for="nomor_pp" class="block text-sm font-medium text-gray-100">Nomor PP</label>
-                        <div class="relative mt-1">
-                            <input id="nomor_pp" value="{{ $newPPCode ?? old('nomor_pp') }}"
-                                class="block w-full pl-10 pr-3 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                type="text" name="nomor_pp" required readonly />
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                <svg class="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="grid grid-cols-3 gap-6 mt-6">
                     <div>
-                        <label for="administrasi_id" class="block text-sm font-medium text-gray-100">Kode Proyek</label>
+                        <label for="kode_proyek_peminta" class="block text-sm font-medium text-gray-100">Kode Proyek</label>
                         <div class="relative mt-1">
-                            <input id="administrasi_id" type="hidden" name="administrasi_id" />
+                            <input id="lpb_id" type="hidden" name="lpb_id" />
                             <input id="kode_proyek_peminta"
                                 class="block w-full pl-10 pr-10 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
                                 type="text" name="kode_proyek_peminta" required readonly />
@@ -129,7 +94,7 @@
                                 </svg>
                             </div>
                             <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3"
-                                onclick="openModal('modal_proyek_peminta')">
+                                onclick="openModal('modal_proyek')">
                                 <svg class="w-5 h-5 text-gray-400 hover:text-blue-400" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -156,94 +121,6 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-6 mt-6">
-                    <div class="grid grid-cols-3 gap-2">
-                        <div>
-                            <input type="hidden" name="transaksi_id" id="transaksi_id"/>
-                            <label for="kode_transaksi" class="block text-sm font-medium text-gray-100">Kode
-                                Transaksi</label>
-                            <div class="relative mt-1">
-                                <input id="kode_transaksi"
-                                    class="block w-full pl-10 pr-10 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                    type="text" name="kode_transaksi" required />
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                                    </svg>
-                                </div>
-                                <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3"
-                                    onclick="openModal('modal_transaksi')">
-                                    <svg class="w-5 h-5 text-gray-400 hover:text-blue-400" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="nama_transaksi" class="block text-sm font-medium text-gray-100">Nama
-                                Transaksi</label>
-                            <div class="relative mt-1">
-                                <input id="nama_transaksi"
-                                    class="block w-full pl-10 pr-3 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                    type="text" name="nama_transaksi" required />
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div>
-                            <input type="hidden" name="supplier_id" id="supplier_id"/>
-                            <label for="kode_supplier" class="block text-sm font-medium text-gray-100">Kode
-                                Supplier</label>
-                            <div class="relative mt-1">
-                                <input id="kode_supplier"
-                                    class="block w-full pl-10 pr-10 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                    type="text" name="kode_supplier" required />
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                                    </svg>
-                                </div>
-                                <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3"
-                                    onclick="openModal('modal_supplier')">
-                                    <svg class="w-5 h-5 text-gray-400 hover:text-blue-400" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="nama_supplier" class="block text-sm font-medium text-gray-100">Nama
-                                Supplier</label>
-                            <div class="relative mt-1">
-                                <input id="nama_supplier"
-                                    class="block w-full pl-10 pr-3 py-2 bg-gray-700 border-gray-600 rounded-md text-gray-100"
-                                    type="text" name="nama_supplier" required />
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="mt-6">
                     <div class="mt-6">
@@ -290,18 +167,17 @@
             </form>
         </div>
     </div>
-    @include('LPB.modal_proyek_peminta')
-    @include('LPB.modal_transaksi')
-    @include('LPB.modal_supplier')
+        @include('BPB.modal_proyek')
+
 </div>
 
-<!--- Daftar Tabel LPB -->
+<!---- Daftar Data BPB --->
 <div class="mt-8 p-6 bg-gray-100 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-        Daftar Laporan Penerimaan barang
+        Daftar Bon Penerimaan barang
     </h2>
     <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
-        Pilih Daftar Laporan Penerimaan Barang
+        Pilih Daftar Bon Penerimaan Barang
     </p>
 
     <!-- Table Start -->
@@ -323,7 +199,7 @@
                         </svg>
                     </div>
                 </div>
-                <form action="{{ route('lpb') }}" method="GET" id="status-form">
+                <form action="{{ route('bpb') }}" method="GET" id="status-form">
                     @csrf
                     <div class="relative">
                         <select id="status-filter" name="status"
@@ -365,17 +241,10 @@
                     <tr>
                         <th
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            Nomor OP</th>
+                            Nomor BPB</th>
                         <th
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             Keperluan Proyek</th>
-                        <th
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            Nama Supplier</th>
-                        <th
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            Nama Transaksi</th>
-
                         <th
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             Aksi</th>
@@ -383,25 +252,19 @@
                 </thead>
                 <tbody
                     class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 items-center text-center justify-center">
-                    @forelse ($lpb as $item)
+                    @forelse ($bpb as $item)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                {{ $item->nomor_op }}
+                                {{ $item->nomor_bpb }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                {{ $item->administrasi->nama_proyek }}
+                                {{ $item->lpb->administrasi->proyek->nama_proyek }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                {{ $item->supplier->nama_supplier }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                {{ $item->transaksi->nama_transaksi }}
-                            </td>
-
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center justify-center space-x-4 h-full">
 
-                                    <a href="{{ route('LPB.lpb_show', $item->id) }}"
+
+                                    <a href="{{ route('BPB.bpb_show', $item->lpb->id) }}"
                                         class="flex items-center text-teal-500 hover:text-teal-700 transition duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -411,7 +274,7 @@
                                         <span class="ml-1">Detail</span>
                                     </a>
 
-                                    <form action="{{ route('LPB.lpb.destroy', $item->id) }}" method="POST"
+                                    <form action="" method="POST"
                                         class="inline">
                                         @csrf
                                         @method('DELETE')
@@ -432,7 +295,7 @@
                     @empty
                         <tr>
                             <td colspan="8" class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
-                                Tidak ada sub anggaran yang ditemukan.
+                                Tidak ada Bon Permintaan Barang yang ditemukan.
                             </td>
                         </tr>
                     @endforelse
@@ -449,9 +312,6 @@
 </div>
 
 
-
-
-
 <script>
     // Fungsi untuk membuka modal berdasarkan ID
     function openModal(modalId) {
@@ -462,53 +322,28 @@
     function closeModal(modalId) {
         document.getElementById(modalId).classList.add('hidden');
     }
-
-    // Fungsi untuk memilih transaksi, mengisi input transaksi, dan menutup modal
-    function selectTransaksi(id,kode_transaksi, nama_transaksi) {
-        document.getElementById('transaksi_id').value = id;
-        document.getElementById('kode_transaksi').value = kode_transaksi;
-        document.getElementById('nama_transaksi').value = nama_transaksi;
-        closeModal('modal_transaksi');
-    }
-
-    // Fungsi untuk memilih supplier, mengisi input supplier, dan menutup modal
-    function selectSupplier(id, kode_supplier, nama_supplier) {
-        document.getElementById('supplier_id').value = id;
-        document.getElementById('kode_supplier').value = kode_supplier;
-        document.getElementById('nama_supplier').value = nama_supplier;
-        closeModal('modal_supplier');
-    }
-
-    // Fungsi untuk memilih administrasi, mengisi input proyek peminta, dan menutup modal
-    function selectAdministrasi(id, proyek_peminta, nama_proyek_peminta) {
+    function selectProyek(id, proyek_peminta, nama_proyek_peminta) {
         console.log(id, proyek_peminta, nama_proyek_peminta);
 
-        document.getElementById('administrasi_id').value = id;
+        document.getElementById('lpb_id').value = id;
         document.getElementById('kode_proyek_peminta').value = proyek_peminta;
         document.getElementById('nama_proyek_peminta').value = nama_proyek_peminta;
 
         // Get the current OP number
-        let currentOPNumber = document.getElementById('nomor_op').value;
-        let currentLPBNumber = document.getElementById('nomor_lpb').value;
-        let currentPPNumber = document.getElementById('nomor_pp').value;
+        let currentBPBNumber = document.getElementById('nomor_bpb').value;
+
 
         // Replace 'XXXXX' in the OP number with the selected project number
-        let newOPNumber = currentOPNumber.replace('XXXXX', proyek_peminta);
-        let newLPBNumber = currentLPBNumber.replace('XXXXX', proyek_peminta);
-        let newPPNumber = currentPPNumber.replace('XXXXX', proyek_peminta);
+        let newBPBNumber = currentBPBNumber.replace('XXXXX', proyek_peminta);
+
 
         // Update the OP number input
-        document.getElementById('nomor_op').value = newOPNumber;
-        document.getElementById('nomor_lpb').value = newLPBNumber;
-        document.getElementById('nomor_pp').value = newPPNumber;
-
-        closeModal('modal_proyek_peminta');
+        document.getElementById('nomor_bpb').value = newBPBNumber;
+        closeModal('modal_proyek');
     }
-
-    // Event listener yang menunggu halaman selesai dimuat
     document.addEventListener('DOMContentLoaded', function() {
         const administrasiSelect = document.getElementById('administrasi_id');
-        const nomorOpInput = document.getElementById('nomor_op');
+        const nomorBPBInput = document.getElementById('nomor_bpb');
 
         // Ketika administrasi berubah, ambil kode OP dari server
         administrasiSelect.addEventListener('change', function() {

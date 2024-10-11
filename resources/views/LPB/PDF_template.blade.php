@@ -75,8 +75,8 @@
             border-right: 1px solid black;
         }
 
-        .header td {
-            height: 120pt;
+        .header  {
+
         }
 
         .header th td {
@@ -86,15 +86,20 @@
 
         .header td {
             font-size: 10pt;
+            border-top: none;
+            border-bottom: none;
         }
 
         .keterangan-table {
             width: 100%;
+            border-top: 1px solid black;
+            border-bottom: :none !important;
+            text-align: center;
         }
 
         .keterangan-table td {
-            border: none;
-            text-align: left;
+            text-align: center;
+            width: 20%;
             vertical-align: top;
             padding: 3mm 0 0 0;
             font-size: 11pt !important;
@@ -103,6 +108,7 @@
         .description-item {
             margin-bottom: 5px;
             display: block;
+            text-align: left !important;
         }
 
         .signature-table {
@@ -137,12 +143,12 @@
         }
 
         .yesbro {
-            border-top: none;
+            border-top: black;
             margin-top: -1px;
         }
 
         .yesbro td {
-            border-top: none;
+            border-top: 1px black;
         }
     </style>
 </head>
@@ -221,17 +227,20 @@
                     <td colspan="5" style="padding: 0;">
                         <table class="keterangan-table">
                             <tr>
-                                <td style="padding-left:20px; ">Keterangan :</td>
-                                <td style="width: 80%; margin:3px; padding-right:268px;">
+                                <td style="width: 65px; border:none"></td>
+                                <td style="width: 160px; border:none;">Keterangan :</td>
+                                <td style="width: 225px; border:none;">
                                     @foreach ($sublpb as $item)
                                         <span class="description-item">- {{ $item->deskripsi }}</span>
                                     @endforeach
                                 </td>
+                                <td style="width: 131px; border:none;"></td>
+                                <td style="width: 126px; border:none;"></td>
+                                <td style="width: 168px; border-right:none; border-bottom:none;">Total :</td>
+                                <td style="border-bottom:none; border-right:none;">Rp. {{ number_format($total_jumlah_harga) }}</td>
                             </tr>
                         </table>
                     </td>
-                    <td style="padding-right:53px;">Total :</td>
-                    <td>Rp. {{ number_format($total_jumlah_harga) }}</td>
                 </tr>
             </tfoot>
         </table>
